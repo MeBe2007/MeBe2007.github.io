@@ -234,7 +234,7 @@ footer {
 .insect.flyer .right-wing { transform-origin: 15px 12px; animation: flapR 0.06s infinite linear; }
 
 /* ==========================================================================
-   5. REALISTIC SHELF FUNGI LAYER (Vertical Climbing Brackets)
+   5. REALISTIC SHELF FUNGI LAYER (Side-Profile Layered Tiers)
    ========================================================================== */
 .mycelium-box-layer {
     position: absolute;
@@ -256,32 +256,32 @@ footer {
 }
 
 .shroom-specimen {
-    /* Stabilize the rotation axis point */
-    transform-origin: bottom left;
+    /* Anchored flush along the vertical wood line seams */
+    transform-origin: center left;
     will-change: filter;
-    animation: sulfurGlow 15s infinite ease-in-out;
+    animation: sulfurGlow 16s infinite ease-in-out;
 }
 
 .shroom-specimen svg {
     display: block;
-    overflow: visible;
 }
 
+/* Sulphur Spore Core Embers */
 .shroom-specimen svg .glow-spore {
-    fill: #fef08a !important;
-    filter: drop-shadow(0 0 2px #d97706) drop-shadow(0 0 7px #facc15);
+    fill: #fefb23 !important;
+    filter: drop-shadow(0 0 2px #d97706) drop-shadow(0 0 8px #fbbf24);
 }
 
-/* ADJUSTED SHADOW: Casts a realistic shadow downward under the vertical brackets */
+/* Casts heavy drop-shadows away from the trunk line attachment points */
 .spec-shelf { 
-    filter: drop-shadow(0px 6px 6px rgba(0,0,0,0.92)); 
+    filter: drop-shadow(8px 10px 10px rgba(0,0,0,0.95)); 
 }
 
 @keyframes sulfurGlow {
     0%, 100% { 
-        filter: brightness(0.8) drop-shadow(0px 4px 5px rgba(0,0,0,0.95)); 
+        filter: brightness(0.8) drop-shadow(6px 8px 10px rgba(0,0,0,0.95)); 
     }
     50% { 
-        filter: brightness(1.12) drop-shadow(0px 8px 10px rgba(0,0,0,0.85)); 
+        filter: brightness(1.1) drop-shadow(10px 14px 18px rgba(0,0,0,0.85)); 
     }
 }
