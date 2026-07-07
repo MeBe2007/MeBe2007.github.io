@@ -247,8 +247,9 @@ footer {
 
 .mushroom-cluster {
     position: absolute;
-    bottom: -4px; /* Flushed directly to the container frame rim */
-    z-index: 10;
+    bottom: -8px; /* Flushed directly to the container frame rim */
+    z-index: 20;
+    pointer-events: none;
     opacity: 0.9;
 }
 
