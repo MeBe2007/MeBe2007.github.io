@@ -1,14 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
     const sections = document.querySelectorAll("section");
-    const mainTitle = document.querySelector("header h1");
 
     function generateMushroomHTML(species, offset, tilt, scale, delay, duration) {
         let svgContent = '';
-        
-        // Dynamic unique ID suffix to prevent gradient collisions
         const id = `${species}-${Math.floor(Math.random() * 10000)}`;
         
-        // Shared organic noise filter to break up smooth vector lines
         const textureFilter = `
             <filter id="fungal-noise-${id}">
                 <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" result="noise" />
@@ -19,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         
         if (species === 'shelf') {
-            // Species 1: Velvet Wood Bracket Fungi (Rich ochre, rough grain rings)
             svgContent = `
                 <svg viewBox="0 0 60 50" width="60" height="50">
                     <defs>
@@ -41,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     <circle cx="34" cy="13" r="1" class="glow-spore" fill="#ffffff" />
                 </svg>`;
         } else if (species === 'ghost') {
-            // Species 2: Bioluminescent Ghost Fungi (Pale, cold emerald glow with dense moss shadows)
             svgContent = `
                 <svg viewBox="0 0 40 50" width="40" height="50">
                     <defs>
@@ -53,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         </linearGradient>
                         <linearGradient id="ghostStemGrad-${id}" x1="0%" y1="0%" x2="100%" y2="0%">
                             <stop offset="0%" stop-color="#042f2e"/>
-                            <stop offset="100%" stop-color="#99f6e4"/>
+                            <stop offset="99%" stop-color="#99f6e4"/>
                         </linearGradient>
                     </defs>
                     <path d="M 20,48 C 24,32, 10,22, 15,16" stroke="url(#ghostStemGrad-${id})" stroke-width="2.5" fill="none" stroke-linecap="round" />
@@ -62,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     <circle cx="24" cy="14" r="1.1" class="glow-spore" fill="#ffffff" />
                 </svg>`;
         } else {
-            // Species 3: Granular Woodland Toadstool (Wavy caps, realistic ambient occlusion shading)
             svgContent = `
                 <svg viewBox="0 0 50 60" width="50" height="60">
                     <defs>
@@ -97,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ">${svgContent}</div>`;
     }
 
-    // 1. GROW ON BOXES
+    // 1. GROW EXCLUSIVELY ON CONTENT BOXES (Vertical boundaries & top rims)
     sections.forEach((section) => {
         let growthHTML = '';
         growthHTML += generateMushroomHTML('shelf', `left: -24px; top: 22%;`, -68, 1.2, 0.1, 12);
@@ -113,27 +106,13 @@ document.addEventListener("DOMContentLoaded", () => {
         section.appendChild(boxLayer);
     });
 
-    // 2. GROW ON MAIN TITLE LETTERS
-    if (mainTitle) {
-        mainTitle.style.position = 'relative';
-        mainTitle.style.display = 'inline-block';
-        let titleGrowthHTML = '';
-        titleGrowthHTML += generateMushroomHTML('ghost', `left: -15px; top: 6px;`, -38, 0.85, 0.2, 12);
-        titleGrowthHTML += generateMushroomHTML('toadstool', `left: 52%; top: -40px;`, 6, 1.0, 1.5, 10);
-        titleGrowthHTML += generateMushroomHTML('shelf', `right: -25px; top: -5px;`, 38, 0.9, 0.8, 14);
-
-        const titleLayer = document.createElement("div");
-        titleLayer.className = "mycelium-title-layer";
-        titleLayer.innerHTML = titleGrowthHTML;
-        mainTitle.appendChild(titleLayer);
-    }
-
-    // 3. GROW OFF THE SCREEN EDGES
+    // 2. GROW OFF THE WINDOW BOUNDARIES (Stays stuck to screen edges during scroll)
     const screenLayer = document.createElement("div");
     screenLayer.className = "mycelium-screen-layer";
     let screenHTML = '';
     screenHTML += generateMushroomHTML('shelf', `left: -25px; top: 32vh;`, -85, 1.7, 0.2, 16);
     screenHTML += generateMushroomHTML('toadstool', `right: -22px; top: 68vh;`, -72, 1.5, 1.4, 12);
+    
     screenLayer.innerHTML = screenHTML;
     document.body.appendChild(screenLayer);
 });
