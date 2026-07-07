@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function generateSideProfileBracket(offset, isLeft, scale, delay) {
         const id = `profile-shelf-${Math.floor(Math.random() * 10000)}`;
         
-        // Coarse, scaly texture filter for the leathery cap top
         const capTexture = `
             <filter id="cap-texture-${id}">
                 <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" result="noise" />
@@ -14,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
             </filter>
         `;
 
-        // SVGs designed to show a heavy top crust curving down into a thick pale under-belly
         const svgContent = `
             <svg viewBox="0 0 120 100" width="120" height="100" style="overflow: visible;">
                 <defs>
@@ -43,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 <g transform="translate(0, 15) scale(0.88)">
                     <path d="M 0,25 C 25,25 90,35 105,20 C 80,45 25,48 0,35 Z" fill="url(#poreGrad-${id})" />
                     <path d="M 0,5 C 20,5 85,10 105,20 C 70,22 15,30 0,25 Z" fill="url(#crustGrad-${id})" filter="url(#cap-texture-${id})" />
-                    <path d="M 0,6 C 20,6 85,11 105,20" stroke="#fde047" stroke-width="1.2" fill="none" opacity="0.4" />
                 </g>
 
                 <g transform="translate(0, -5) scale(0.72)">
@@ -53,12 +50,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 <circle cx="35" cy="48" r="1.5" class="glow-spore" fill="#ffffff" />
                 <circle cx="55" cy="28" r="1.2" class="glow-spore" fill="#ffffff" />
-                <circle cx="20" cy="72" r="1.3" class="glow-spore" fill="#ffffff" />
             </svg>
         `;
 
-        // If growing on the right side of a trunk, flip the entire graphic horizontally
-        const flipTransform = isLeft ? '' : 'scaleX(-1)';
+        // If it's growing on the left edge, we flip it so it points outward to the left gutters
+        const flipTransform = isLeft ? 'scaleX(-1)' : '';
 
         return `
             <div class="shroom-specimen spec-shelf" style="
@@ -69,16 +65,16 @@ document.addEventListener("DOMContentLoaded", () => {
             ">${svgContent}</div>`;
     }
 
-    // 1. ANCHOR ON THE GLASS CARD TRUNKS
+    // 1. CONTENT BOX ANCHORS
     sections.forEach((section) => {
         let growthHTML = '';
         
-        // Left Edge of Card: Growing outward toward the left (set true to keep base orientation)
-        growthHTML += generateSideProfileBracket(`left: -88px; top: 20%;`, true, 1.1, 0.1);
-        growthHTML += generateSideProfileBracket(`left: -84px; top: 65%;`, true, 0.9, 2.3);
+        // Left Side: Shifted to pull the flipped base perfectly flush with the left frame track
+        growthHTML += generateSideProfileBracket(`left: -15px; top: 25%;`, true, 1.0, 0.1);
+        growthHTML += generateSideProfileBracket(`left: -15px; top: 65%;`, true, 0.85, 2.3);
 
-        // Right Edge of Card: Growing outward toward the right (set false to flip horizontally)
-        growthHTML += generateSideProfileBracket(`right: -88px; top: 40%;`, false, 1.15, 1.4);
+        // Right Side: Anchored seamlessly pointing outward to the right gutters
+        growthHTML += generateSideProfileBracket(`right: -15px; top: 45%;`, false, 1.05, 1.4);
 
         const boxLayer = document.createElement("div");
         boxLayer.className = "mycelium-box-layer";
@@ -86,15 +82,15 @@ document.addEventListener("DOMContentLoaded", () => {
         section.appendChild(boxLayer);
     });
 
-    // 2. ANCHOR ON THE SYSTEM SCREEN EDGE TRUNKS
+    // 2. ABSOLUTE VIEWPORT SCREEN ANCHORS
     const screenLayer = document.createElement("div");
     screenLayer.className = "mycelium-screen-layer";
     let screenHTML = '';
     
-    // Left viewport frame (Jutting into view)
-    screenHTML += generateSideProfileBracket(`left: -75px; top: 30vh;`, true, 1.5, 0.5);
-    // Right viewport frame (Jutting into view)
-    screenHTML += generateSideProfileBracket(`right: -75px; top: 65vh;`, false, 1.4, 1.9);
+    // Left screen frame edge
+    screenHTML += generateSideProfileBracket(`left: -10px; top: 30vh;`, true, 1.4, 0.5);
+    // Right screen frame edge
+    screenHTML += generateSideProfileBracket(`right: -10px; top: 70vh;`, false, 1.3, 1.9);
     
     screenLayer.innerHTML = screenHTML;
     document.body.appendChild(screenLayer);
