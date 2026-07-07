@@ -4,11 +4,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=500;700&family=Metrophobic&display=swap');
 
 :root {
-    --bg-color: #0b1a14;     /* Deep, rich forest floor midnight */
-    --card-bg: rgba(16, 36, 29, 0.8); /* Dark greenhouse translucent tint */
+    --bg-color: #08120a;     /* Deep, rich forest floor midnight */
+    --card-bg: rgba(12, 28, 16, 0.85); /* Dark greenhouse translucent tint */
     --text-main: #e8f5ee;
     --neon-green: #39ff14;
-    --neon-glow: #00f5a0;
+    --neon-glow: #10b981;
 }
 
 * {
@@ -24,7 +24,7 @@ body {
     line-height: 1.8;
     padding: 20px 15px;
     /* Soft, elegant canopy glow wash - clean and dark, not chaotic */
-    background-image: radial-gradient(circle at 50% 20%, #15382a 0%, #0b1a14 85%);
+    background-image: radial-gradient(circle at 50% 20%, #132d19 0%, #0812a 85%);
     background-attachment: fixed; 
     overflow-x: hidden;
 }
@@ -105,12 +105,12 @@ header p .line-two {
     left: -280px;
     width: 280px;
     height: 100%;
-    background-color: #0e2119;
+    background-color: #0b180d;
     border-right: 1px solid rgba(57, 255, 20, 0.3);
     z-index: 1000;
     transition: left 0.3s ease;
     padding: 30px 20px;
-    box-shadow: 5px 0 25px rgba(0,0,0,0.6);
+    box-shadow: 5px 0 25px rgba(0,0,0,0.7);
 }
 
 .sidebar.open { left: 0; }
@@ -217,13 +217,13 @@ footer {
 }
 
 .insect.crawler {
-    opacity: 0.6;
-    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.6));
+    opacity: 0.45;
+    filter: brightness(0.2) drop-shadow(0 2px 4px rgba(0,0,0,0.85));
 }
 
-.insect.flyer { opacity: 0.9; }
+.insect.flyer { opacity: 1; filter: brightness(1.2) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.7)); }
 .insect.flyer .glow-core {
-    box-shadow: 0 0 8px 3px #39ff14;
+    box-shadow: 0 0 10px 4px #39ff14;
     filter: drop-shadow(0 0 4px #39ff14);
 }
 
