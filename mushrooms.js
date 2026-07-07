@@ -4,46 +4,45 @@ document.addEventListener("DOMContentLoaded", () => {
     function generateShelfCluster(offset, tilt, scale, delay) {
         const id = `shelf-${Math.floor(Math.random() * 10000)}`;
         
-        // Heavy, gritty organic bark texture filter
+        // Coarse fractal noise to mimic rough wood-grain texture
         const textureFilter = `
             <filter id="shelf-noise-${id}">
-                <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" result="noise" />
-                <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.22 0" />
+                <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" result="noise" />
+                <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.25 0" />
                 <feComposite operator="in" in2="SourceGraphic" result="monoNoise" />
                 <feBlend mode="multiply" in="SourceGraphic" in2="monoNoise" />
             </filter>
         `;
 
-        // Generates a single, naturally deformed shelf path
-        // Uses irregular control points so it looks hand-drawn and organic
+        // The SVG geometry now uses a flat vertical baseline on the left (0,0 axis)
+        // so it looks perfectly fused into the wood boundary line.
         svgContent = `
-            <svg viewBox="0 0 80 60" width="80" height="60">
+            <svg viewBox="0 0 80 60" width="85" height="65">
                 <defs>
                     ${textureFilter}
-                    <linearGradient id="shelfGrad-${id}" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stop-color="#eab308" />       <stop offset="25%" stop-color="#b45309" />      <stop offset="70%" stop-color="#451a03" />      <stop offset="100%" stop-color="#1c1917" />     </linearGradient>
+                    <linearGradient id="shelfGrad-${id}" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#140a03" />       <stop offset="20%" stop-color="#5c2d06" />      <stop offset="75%" stop-color="#b45309" />      <stop offset="100%" stop-color="#f59e0b" />     </linearGradient>
                 </defs>
                 
-                <path d="M 5,45 C 5,15, 55,10, 75,30 C 70,48, 40,55, 5,45 Z" fill="#0c0a09" opacity="0.65" filter="blur(2px)" />
+                <path d="M 0,5 C 20,10, 35,25, 30,55 C 15,55, 0,45, 0,5 Z" fill="#050404" filter="blur(3px)" />
 
                 <g filter="url(#shelf-noise-${id})">
-                    <path d="M 8,42 C 6,18, 52,10, 72,28 C 74,38, 48,50, 8,42 Z" fill="url(#shelfGrad-${id})" />
-                    <path d="M 14,36 C 18,24, 46,18, 62,30" stroke="rgba(254,240,138,0.25)" stroke-width="1.5" fill="none" />
-                    <path d="M 22,39 C 26,30, 42,26, 54,34" stroke="rgba(0,0,0,0.4)" stroke-width="1.2" fill="none" />
+                    <path d="M 0,10 C 35,5, 75,15, 75,32 C 65,48, 30,52, 0,48 Z" fill="url(#shelfGrad-${id})" />
+                    <path d="M 0,18 C 25,14, 55,22, 60,32" stroke="rgba(254,240,138,0.22)" stroke-width="1.5" fill="none" />
+                    <path d="M 0,28 C 15,24, 40,28, 45,36" stroke="rgba(0,0,0,0.35)" stroke-width="1.2" fill="none" />
                 </g>
 
-                <g transform="translate(6, -10) scale(0.75) rotate(-5)" filter="url(#shelf-noise-${id})">
-                    <path d="M 8,42 C 6,18, 52,10, 72,28 C 74,38, 48,50, 8,42 Z" fill="url(#shelfGrad-${id})" />
-                    <path d="M 14,36 C 18,24, 46,18, 62,30" stroke="rgba(254,240,138,0.2)" stroke-width="1.5" fill="none" />
+                <g transform="translate(0, 4) scale(0.72) rotate(6)" filter="url(#shelf-noise-${id})">
+                    <path d="M 0,10 C 35,5, 75,15, 75,32 C 65,48, 30,52, 0,48 Z" fill="url(#shelfGrad-${id})" />
                 </g>
 
-                <g transform="translate(18, -16) scale(0.45) rotate(8)" filter="url(#shelf-noise-${id})">
-                    <path d="M 8,42 C 6,18, 52,10, 72,28 C 74,38, 48,50, 8,42 Z" fill="url(#shelfGrad-${id})" />
+                <g transform="translate(0, 12) scale(0.45) rotate(-8)" filter="url(#shelf-noise-${id})">
+                    <path d="M 0,10 C 35,5, 75,15, 75,32 C 65,48, 30,52, 0,48 Z" fill="url(#shelfGrad-${id})" />
                 </g>
 
-                <circle cx="24" cy="32" r="1.3" class="glow-spore" fill="#ffffff" />
-                <circle cx="42" cy="35" r="1.0" class="glow-spore" fill="#ffffff" />
-                <circle cx="16" cy="24" r="1.1" class="glow-spore" fill="#ffffff" />
+                <circle cx="28" cy="24" r="1.3" class="glow-spore" fill="#ffffff" />
+                <circle cx="48" cy="34" r="1.0" class="glow-spore" fill="#ffffff" />
+                <circle cx="16" cy="18" r="1.1" class="glow-spore" fill="#ffffff" />
             </svg>
         `;
 
@@ -56,16 +55,16 @@ document.addEventListener("DOMContentLoaded", () => {
             ">${svgContent}</div>`;
     }
 
-    // Attach clusters to content cards
+    // 1. DOCK DIRECTLY ON THE BOX "TRUNKS"
     sections.forEach((section) => {
         let growthHTML = '';
         
-        // Clamped directly to the left vertical frames
-        growthHTML += generateShelfCluster(`left: -28px; top: 25%;`, -90, 1.2, 0.1);
-        growthHTML += generateShelfCluster(`left: -24px; top: 70%;`, -80, 1.0, 2.3);
+        // Left Box Edge: Sprouting horizontally out to the left (180deg flip)
+        growthHTML += generateShelfCluster(`left: -58px; top: 20%;`, 180, 1.25, 0.1);
+        growthHTML += generateShelfCluster(`left: -58px; top: 65%;`, 180, 1.05, 2.3);
 
-        // Clamped directly to the right vertical frames
-        growthHTML += generateShelfCluster(`right: -42px; top: 40%;`, 90, 1.3, 1.4);
+        // Right Box Edge: Sprouting horizontally out to the right (0deg default orientation)
+        growthHTML += generateShelfCluster(`right: -58px; top: 45%;`, 0, 1.3, 1.4);
 
         const boxLayer = document.createElement("div");
         boxLayer.className = "mycelium-box-layer";
@@ -73,12 +72,15 @@ document.addEventListener("DOMContentLoaded", () => {
         section.appendChild(boxLayer);
     });
 
-    // Grow major clusters right on the screen margins
+    // 2. DOCK DIRECTLY ON THE VIEWPORT SCREEN WINDOW "TRUNKS"
     const screenLayer = document.createElement("div");
     screenLayer.className = "mycelium-screen-layer";
     let screenHTML = '';
-    screenHTML += generateShelfCluster(`left: -32px; top: 30vh;`, -90, 1.8, 0.5);
-    screenHTML += generateShelfCluster(`right: -28px; top: 65vh;`, 90, 1.6, 1.9);
+    
+    // Left viewport frame attachment
+    screenHTML += generateShelfCluster(`left: -52px; top: 25vh;`, 0, 1.8, 0.5);
+    // Right viewport frame attachment
+    screenHTML += generateShelfCluster(`right: -52px; top: 70vh;`, 180, 1.6, 1.9);
     
     screenLayer.innerHTML = screenHTML;
     document.body.appendChild(screenLayer);
