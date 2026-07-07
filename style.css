@@ -234,7 +234,7 @@ footer {
 .insect.flyer .right-wing { transform-origin: 15px 12px; animation: flapR 0.06s infinite linear; }
 
 /* ==========================================================================
-   5. REALISTIC MULTI-SPECIES FUNGI TAKEOVER LAYER
+   5. REALISTIC MULTI-SPECIES FUNGI TAKEOVER LAYER (Fixed Colors)
    ========================================================================== */
 .mycelium-box-layer, 
 .mycelium-title-layer {
@@ -266,25 +266,29 @@ footer {
     display: block;
 }
 
-/* --- Color Binding Layer --- */
+/* --- Direct Class Asset Color Mappings --- */
 
-/* 1. Wood Shelves (Ochre/Browns) */
-.spec-shelf .shroom-cap { fill: url(#shelfCap) !important; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.85)); }
-.spec-shelf .glow-spore { fill: #fef08a !important; filter: drop-shadow(0 0 2px #eab308) drop-shadow(0 0 5px rgba(234,179,8,0.5)); }
+/* 1. Wood Shelves (Ochre Cap + Dark Stems) */
+.shelf-cap { fill: url(#shelfCapGrad) !important; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.8)); }
+.shelf-stem { stroke: url(#shelfStemGrad) !important; }
 
-/* 2. Ghost Fungi (Pale Translucent Emeralds) */
-.spec-ghost .shroom-cap { fill: url(#ghostCap) !important; fill-opacity: 0.85; filter: drop-shadow(0 4px 5px rgba(0,0,0,0.9)); }
-.spec-ghost .shroom-stem { stroke: url(#ghostStem) !important; }
-.spec-ghost .glow-spore { fill: #a7f3d0 !important; filter: drop-shadow(0 0 3px #10b981) drop-shadow(0 0 8px #34d399); }
+/* 2. Ghost Fungi (Pale Aquas) */
+.ghost-cap { fill: url(#ghostCapGrad) !important; fill-opacity: 0.9; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.85)); }
+.ghost-stem { stroke: url(#ghostStemGrad) !important; }
 
-/* 3. Forest Toadstools (Moss Green/Earthy Deep Tones) */
-.spec-toadstool .shroom-cap { fill: url(#toadCap) !important; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.9)); }
-.spec-toadstool .shroom-stem { stroke: url(#toadStem) !important; }
-.spec-toadstool .shroom-gills { fill: url(#toadGills) !important; }
-.spec-toadstool .glow-spore { fill: #e8ffd9 !important; filter: drop-shadow(0 0 2px #16a34a) drop-shadow(0 0 6px rgba(57,255,20,0.6)); }
+/* 3. Forest Toadstools (Deep Greens) */
+.toad-cap { fill: url(#toadCapGrad) !important; filter: drop-shadow(0 4px 5px rgba(0,0,0,0.9)); }
+.toad-stem { stroke: url(#toadStemGrad) !important; }
+.toad-gills { fill: url(#toadGillsGrad) !important; }
+
+/* Global Bioluminescent Micro Spores */
+.glow-spore {
+    fill: #ffffff !important;
+    filter: drop-shadow(0 0 2px #22c55e) drop-shadow(0 0 6px #39ff14);
+}
 
 /* --- Gentle Breathing Engine --- */
 @keyframes chemicalGlow {
-    0%, 100% { filter: brightness(0.8) drop-shadow(0 2px 4px rgba(0,0,0,0.95)); }
-    50% { filter: brightness(1.15) drop-shadow(0 4px 10px rgba(0,0,0,0.7)); }
+    0%, 100% { filter: brightness(0.8) drop-shadow(0 2px 4px rgba(0,0,0,0.9)); }
+    50% { filter: brightness(1.15) drop-shadow(0 4px 8px rgba(0,0,0,0.65)); }
 }
