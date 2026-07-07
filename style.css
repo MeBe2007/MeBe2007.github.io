@@ -234,7 +234,7 @@ footer {
 .insect.flyer .right-wing { transform-origin: 15px 12px; animation: flapR 0.06s infinite linear; }
 
 /* ==========================================================================
-   5. DEEP REALISM TRUNK-ANCHORED MUSHROOM CORES
+   5. REALISTIC SHELF FUNGI TAKEOVER CORE
    ========================================================================== */
 .mycelium-box-layer {
     position: absolute;
@@ -277,63 +277,63 @@ footer {
     50% { filter: brightness(1.15) drop-shadow(8px 10px 14px rgba(0,0,0,0.75)); }
 }
 
+/* BASE SPECIFIC DIRECTION HANDLING (Zero calculations, pure anchoring) */
+.shroom-left {
+    right: 100%; /* Automatically snaps the flat base to the outside left border line */
+    transform: scaleX(-1); /* Flips the graphic cleanly out into the gutter space */
+}
+
+.shroom-right {
+    left: 100%; /* Automatically snaps the flat base to the outside right border line */
+}
+
 /* ==========================================================================
-   DESKTOP / LAPTOP LAYOUT ENVIRONMENT (min-width: 992px)
+   LAPTOP & LARGE WIDESCREEN MONITORS (min-width: 992px)
    ========================================================================== */
 @media (min-width: 992px) {
-    .shroom-specimen {
-        width: 70px;
-        height: 58px;
-    }
+    .shroom-specimen { width: 75px; height: 62px; }
     
-    /* Left card edge: Fixed rotation origin alignments */
-    .shroom-left-top    { left: 0px; top: 22%; transform: translate(-100%, 0) scaleX(-1); }
-    .shroom-left-bottom { left: 0px; top: 68%; transform: translate(-100%, 0) scaleX(-1); }
+    /* Box Heights placement */
+    .left-t  { top: 20%; }
+    .left-b  { top: 65%; }
+    .right-t { top: 25%; }
+    .right-b { top: 60%; }
     
-    /* Right card edge */
-    .shroom-right-top    { right: -5px; top: 25%; }
-    .shroom-right-bottom { right: -5px; top: 60%; }
-    
-    /* Screen side edge anchors: Locked safely within the active safe window margins */
-    .screen-left-shroom  { left: 0px; top: 12vh; transform: translate(0%, 0) scaleX(-1) scale(1.2); }
-    .screen-right-shroom { right: -5px; top: 68vh; transform: scale(1.2); }
+    /* Screen Overrides (Pulls them safely out of viewport bounds edges) */
+    .screen-l { left: 0; top: 15vh; }
+    .screen-r { right: 0; top: 72vh; }
 }
 
 /* ==========================================================================
-   MID-SIZE & EQUAL SPLIT-SCREEN LAPTOP ENVIRONMENT (768px to 991px)
+   MID-SIZE & NARROW LAPTOP SPLIT-SCREENS (768px to 991px)
    ========================================================================== */
 @media (min-width: 768px) and (max-width: 991px) {
-    .shroom-specimen {
-        /* Gently dropped down to mid-scale to handle narrow split views gracefully */
-        width: 55px;
-        height: 46px;
-    }
+    .shroom-specimen { width: 52px; height: 43px; }
     
-    .shroom-left-top    { left: 0px; top: 22%; transform: translate(-100%, 0) scaleX(-1); }
-    .shroom-left-bottom { left: 0px; top: 68%; transform: translate(-100%, 0) scaleX(-1); }
+    .left-t  { top: 20%; }
+    .left-b  { top: 65%; }
+    .right-t { top: 25%; }
+    .right-b { top: 60%; }
     
-    .shroom-right-top    { right: -5px; top: 25%; }
-    .shroom-right-bottom { right: -5px; top: 60%; }
-    
-    .screen-left-shroom  { left: 0px; top: 15vh; transform: translate(0%, 0) scaleX(-1) scale(1.0); }
-    .screen-right-shroom { right: -5px; top: 70vh; transform: scale(1.0); }
+    .screen-l { left: 0; top: 15vh; }
+    .screen-r { right: 0; top: 72vh; }
 }
 
 /* ==========================================================================
-   MOBILE PHONE LAYOUT ENVIRONMENT (max-width: 767px)
+   MOBILE PHONES (max-width: 767px)
    ========================================================================== */
 @media (max-width: 767px) {
-    .shroom-specimen {
-        width: 40px;
-        height: 33px;
-    }
+    .shroom-specimen { width: 38px; height: 32px; }
     
-    .shroom-left-top    { left: 0px; top: 22%; transform: translate(-80%, 0) scaleX(-1); }
-    .shroom-left-bottom { left: 0px; top: 68%; transform: translate(-80%, 0) scaleX(-1); }
+    /* Pulls them inward slightly so they sit on the compact phone layout rim */
+    .shroom-left  { right: auto; left: -10px; transform: scaleX(-1); }
+    .shroom-right { left: auto; right: -10px; }
     
-    .shroom-right-top    { right: -2px; top: 25%; }
-    .shroom-right-bottom { right: -2px; top: 60%; }
+    .left-t  { top: 22%; }
+    .left-b  { top: 68%; }
+    .right-t { top: 25%; }
+    .right-b { top: 60%; }
     
-    .screen-left-shroom  { left: 0px; top: 25vh; transform: translate(0%, 0) scaleX(-1) scale(0.9); }
-    .screen-right-shroom { right: -2px; top: 75vh; transform: scale(0.9); }
+    .screen-l { left: -5px; top: 25vh; }
+    .screen-r { right: -5px; top: 75vh; }
 }
