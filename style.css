@@ -234,7 +234,7 @@ footer {
 .insect.flyer .right-wing { transform-origin: 15px 12px; animation: flapR 0.06s infinite linear; }
 
 /* ==========================================================================
-   5. REALISTIC SHELF FUNGI LAYER (Side-Profile Layered Tiers)
+   5. DEEP REALISM TRUNK-ANCHORED MUSHROOM CORES
    ========================================================================== */
 .mycelium-box-layer {
     position: absolute;
@@ -256,32 +256,67 @@ footer {
 }
 
 .shroom-specimen {
-    /* Anchored flush along the vertical wood line seams */
-    transform-origin: center left;
+    position: absolute;
     will-change: filter;
-    animation: sulfurGlow 16s infinite ease-in-out;
+    animation: chemicalGlow 14s infinite ease-in-out;
 }
 
 .shroom-specimen svg {
     display: block;
+    width: 100%;
+    height: 100%;
 }
 
-/* Sulphur Spore Core Embers */
 .shroom-specimen svg .glow-spore {
     fill: #fefb23 !important;
     filter: drop-shadow(0 0 2px #d97706) drop-shadow(0 0 8px #fbbf24);
 }
 
-/* Casts heavy drop-shadows away from the trunk line attachment points */
-.spec-shelf { 
-    filter: drop-shadow(8px 10px 10px rgba(0,0,0,0.95)); 
+@keyframes chemicalGlow {
+    0%, 100% { filter: brightness(0.8) drop-shadow(5px 5px 6px rgba(0,0,0,0.9)); }
+    50% { filter: brightness(1.15) drop-shadow(8px 10px 14px rgba(0,0,0,0.75)); }
 }
 
-@keyframes sulfurGlow {
-    0%, 100% { 
-        filter: brightness(0.8) drop-shadow(6px 8px 10px rgba(0,0,0,0.95)); 
+/* ==========================================================================
+   DESKTOP / LAPTOP LAYOUT ENVIRONMENT (Sized Large & Cleared Into Gutters)
+   ========================================================================== */
+@media (min-width: 768px) {
+    .shroom-specimen {
+        width: 110px;
+        height: 90px;
     }
-    50% { 
-        filter: brightness(1.1) drop-shadow(10px 14px 18px rgba(0,0,0,0.85)); 
+    
+    /* Left box side: flipped out into left margins */
+    .shroom-left-top    { left: -108px; top: 22%; transform: scaleX(-1); }
+    .shroom-left-bottom { left: -108px; top: 68%; transform: scaleX(-1); }
+    
+    /* Right box side: pointing out into right margins */
+    .shroom-right-top    { right: -108px; top: 25%; }
+    .shroom-right-bottom { right: -108px; top: 60%; }
+    
+    /* Screen side edge anchors */
+    .screen-left-shroom  { left: -100px; top: 30vh; transform: scaleX(-1) scale(1.4); }
+    .screen-right-shroom { right: -100px; top: 72vh; transform: scale(1.4); }
+}
+
+/* ==========================================================================
+   MOBILE PHONE LAYOUT ENVIRONMENT (Scaled down and moved tight to borders)
+   ========================================================================== */
+@media (max-width: 767px) {
+    .shroom-specimen {
+        width: 48px;
+        height: 40px;
     }
+    
+    /* Left card edge: slightly overlapping phone borders cleanly */
+    .shroom-left-top    { left: -24px; top: 22%; transform: scaleX(-1); }
+    .shroom-left-bottom { left: -24px; top: 68%; transform: scaleX(-1); }
+    
+    /* Right card edge: slightly overlapping phone borders cleanly */
+    .shroom-right-top    { right: -24px; top: 25%; }
+    .shroom-right-bottom { right: -24px; top: 60%; }
+    
+    /* Screen border attachments */
+    .screen-left-shroom  { left: -20px; top: 32vh; transform: scaleX(-1) scale(1.1); }
+    .screen-right-shroom { right: -20px; top: 75vh; transform: scale(1.1); }
 }
