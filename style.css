@@ -278,45 +278,62 @@ footer {
 }
 
 /* ==========================================================================
-   DESKTOP / LAPTOP LAYOUT ENVIRONMENT (Sized Large & Cleared Into Gutters)
+   DESKTOP / LAPTOP LAYOUT ENVIRONMENT (min-width: 992px)
    ========================================================================== */
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     .shroom-specimen {
-        width: 75px;
-        height: 62px;
+        width: 70px;
+        height: 58px;
     }
     
-    /* Left box side: flipped out into left margins */
-    .shroom-left-top    { left: -73px; top: 22%; transform: scaleX(-1); }
-    .shroom-left-bottom { left: -73px; top: 68%; transform: scaleX(-1); }
+    /* Left card edge: Fixed rotation origin alignments */
+    .shroom-left-top    { left: 0px; top: 22%; transform: translate(-100%, 0) scaleX(-1); }
+    .shroom-left-bottom { left: 0px; top: 68%; transform: translate(-100%, 0) scaleX(-1); }
     
-    /* Right box side: pointing out into right margins */
-    .shroom-right-top    { right: -73px; top: 25%; }
-    .shroom-right-bottom { right: -73px; top: 60%; }
+    /* Right card edge */
+    .shroom-right-top    { right: -5px; top: 25%; }
+    .shroom-right-bottom { right: -5px; top: 60%; }
     
-    /* Screen side edge anchors */
-    .screen-left-shroom  { left: -68px; top: 30vh; transform: scaleX(-1) scale(1.15); }
-    .screen-right-shroom { right: -68px; top: 72vh; transform: scale(1.15); }
+    /* Screen side edge anchors: Locked safely within the active safe window margins */
+    .screen-left-shroom  { left: 0px; top: 12vh; transform: translate(0%, 0) scaleX(-1) scale(1.2); }
+    .screen-right-shroom { right: -5px; top: 68vh; transform: scale(1.2); }
 }
 
 /* ==========================================================================
-   MOBILE PHONE LAYOUT ENVIRONMENT (Scaled down and moved tight to borders)
+   MID-SIZE & EQUAL SPLIT-SCREEN LAPTOP ENVIRONMENT (768px to 991px)
+   ========================================================================== */
+@media (min-width: 768px) and (max-width: 991px) {
+    .shroom-specimen {
+        /* Gently dropped down to mid-scale to handle narrow split views gracefully */
+        width: 55px;
+        height: 46px;
+    }
+    
+    .shroom-left-top    { left: 0px; top: 22%; transform: translate(-100%, 0) scaleX(-1); }
+    .shroom-left-bottom { left: 0px; top: 68%; transform: translate(-100%, 0) scaleX(-1); }
+    
+    .shroom-right-top    { right: -5px; top: 25%; }
+    .shroom-right-bottom { right: -5px; top: 60%; }
+    
+    .screen-left-shroom  { left: 0px; top: 15vh; transform: translate(0%, 0) scaleX(-1) scale(1.0); }
+    .screen-right-shroom { right: -5px; top: 70vh; transform: scale(1.0); }
+}
+
+/* ==========================================================================
+   MOBILE PHONE LAYOUT ENVIRONMENT (max-width: 767px)
    ========================================================================== */
 @media (max-width: 767px) {
     .shroom-specimen {
-        width: 48px;
-        height: 40px;
+        width: 40px;
+        height: 33px;
     }
     
-    /* Left card edge: slightly overlapping phone borders cleanly */
-    .shroom-left-top    { left: -24px; top: 22%; transform: scaleX(-1); }
-    .shroom-left-bottom { left: -24px; top: 68%; transform: scaleX(-1); }
+    .shroom-left-top    { left: 0px; top: 22%; transform: translate(-80%, 0) scaleX(-1); }
+    .shroom-left-bottom { left: 0px; top: 68%; transform: translate(-80%, 0) scaleX(-1); }
     
-    /* Right card edge: slightly overlapping phone borders cleanly */
-    .shroom-right-top    { right: -24px; top: 25%; }
-    .shroom-right-bottom { right: -24px; top: 60%; }
+    .shroom-right-top    { right: -2px; top: 25%; }
+    .shroom-right-bottom { right: -2px; top: 60%; }
     
-    /* Screen border attachments */
-    .screen-left-shroom  { left: -20px; top: 32vh; transform: scaleX(-1) scale(1.1); }
-    .screen-right-shroom { right: -20px; top: 75vh; transform: scale(1.1); }
+    .screen-left-shroom  { left: 0px; top: 25vh; transform: translate(0%, 0) scaleX(-1) scale(0.9); }
+    .screen-right-shroom { right: -2px; top: 75vh; transform: scale(0.9); }
 }
