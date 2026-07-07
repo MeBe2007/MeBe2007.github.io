@@ -14,6 +14,11 @@
         .menu-btn { position: absolute; top: 10px; left: 0; background: none; border: 1px solid var(--neon-green); color: var(--neon-green); padding: 5px 12px; border-radius: 6px; font-size: 1.4rem; cursor: pointer; z-index: 10; line-height: 1; }
         header h1 { font-family: 'Cinzel', serif; font-size: 2.3rem; color: #ffffff; text-shadow: 0 0 10px var(--neon-glow), 0 0 20px var(--neon-green); line-height: 1.2; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
         header p { font-style: italic; color: var(--neon-green); font-size: 1rem; letter-spacing: 1px; }
+        header p span { display: block; }
+        header p.line-two { margin-top: 4px; }
+        @media (min-width: 500px) { header p span { display: inline; }
+                                   header p .line-two { margin-top: 0; }
+                                   header p .line-one::after { content: " /"; }}
         .divider { height: 2px; background: linear-gradient(90deg, transparent, var(--neon-green), transparent); margin: 20px 0 30px; }
         .sidebar { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background-color: #070d0a; border-right: 1px solid rgba(57, 255, 20, 0.3); z-index: 100; transition: left 0.3s ease; padding: 30px 20px; box-shadow: 5px 0 25px rgba(0,0,0,0.8); }
         .sidebar.open { left: 0; }
@@ -47,10 +52,13 @@
     </nav>
 
     <div class="container">
-        <header>
+       <header>
             <button class="menu-btn" onclick="toggleMenu()">☰</button>
             <h1>The Terrarium</h1>
-            <p>The Dandelion Collective / Botanica / Boomtown 2026</p>
+            <p>
+                <span class="line-one">The Dandelion Collective</span> 
+                <span class="line-two">Botanica / Boomtown 2026</span>
+            </p>
         </header>
 
         <div class="divider"></div>
