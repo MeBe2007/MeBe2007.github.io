@@ -1,48 +1,58 @@
 document.addEventListener("DOMContentLoaded", () => {
     const sections = document.querySelectorAll("section");
 
-    sections.forEach((section, index) => {
+    sections.forEach((section) => {
         const containerWrapper = document.createElement("div");
         containerWrapper.className = "cluster-container";
 
-        const typeA = `
-            <div class="mushroom-cluster type-a" style="right: 30px; transform: scale(1.5);">
-                <svg viewBox="0 0 50 50" width="50" height="50">
-                    <path d="M15,50 Q18,30 12,18 M30,50 Q28,22 34,12" stroke="#122416" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-                    <path d="M22,14 C22,3 44,3 44,14 Z" fill="#1b3b22"/>
-                    <ellipse cx="33" cy="13.5" rx="11" ry="2.5" fill="#2d5e39"/>
-                    <circle cx="28" cy="8" r="1.2" fill="#39ff14"/>
-                    <circle cx="36" cy="7" r="1" fill="#39ff14"/>
-                    <path d="M4,20 C4,11 19,11 19,20 Z" fill="#152e1a"/>
-                    <ellipse cx="11.5" cy="19.5" rx="7.5" ry="2" fill="#224a2a"/>
-                    <circle cx="11" cy="16" r="1" fill="#39ff14"/>
-                </svg>
-            </div>
-        `;
+        // Determine a random density of mushrooms per card (3 to 6)
+        const mushroomCount = Math.floor(Math.random() * 4) + 3;
+        let clusterHTML = '';
 
-        const typeB = `
-            <div class="mushroom-cluster type-b" style="left: 20px; transform: scale(1.6) scaleX(-1);">
-                <svg viewBox="0 0 50 40" width="50" height="40">
-                    <path d="M0,40 Q15,35 10,20" stroke="#0e1f13" stroke-width="4" fill="none"/>
-                    <path d="M2,28 C2,16 32,16 32,28 Z" fill="#18331f"/>
-                    <ellipse cx="17" cy="27" rx="15" ry="3.5" fill="#295434"/>
-                    <circle cx="12" cy="23" r="1.4" fill="#39ff14"/>
-                    <circle cx="22" cy="22" r="1.2" fill="#39ff14"/>
-                    <path d="M25,36 C25,30 39,30 39,36 Z" fill="#0f2114"/>
-                    <ellipse cx="32" cy="35.5" rx="7" ry="1.5" fill="#1a3822"/>
-                </svg>
-            </div>
-        `;
+        for (let i = 0; i < mushroomCount; i++) {
+            // Randomize genetics for each individual mushroom
+            const height = Math.floor(Math.random() * 25) + 25; // 25px to 50px tall
+            const capWidth = Math.floor(Math.random() * 16) + 16; // 16px to 32px wide
+            const capHeight = Math.floor(Math.random() * 6) + 6;   // 6px to 12px deep
+            const tilt = (Math.random() - 0.5) * 25;              // Angle slant in degrees
+            
+            // Scatter them naturally along the bottom rim of the box
+            const positionPercent = Math.floor(Math.random() * 80) + 10; 
+            
+            // Stagger their breathing animations so they don't pulse at the exact same second
+            const pulseDelay = (Math.random() * 3).toFixed(2);
+            const pulseDuration = (Math.random() * 2 + 3).toFixed(2);
 
-        containerWrapper.innerHTML = typeA + typeB;
-
-        if (index % 2 !== 0) {
-            const elA = containerWrapper.querySelector(".type-a");
-            const elB = containerWrapper.querySelector(".type-b");
-            if (elA) { elA.style.right = "auto"; elA.style.left = "45px"; elA.style.transform = "scale(1.4) scaleX(-1)"; }
-            if (elB) { elB.style.left = "auto"; elB.style.right = "15px"; elB.style.transform = "scale(1.7)"; }
+            clusterHTML += `
+                <div class="mushroom-specimen" style="
+                    left: ${positionPercent}%; 
+                    animation-delay: ${pulseDelay}s; 
+                    animation-duration: ${pulseDuration}s;
+                    transform: rotate(${tilt}deg);
+                ">
+                    <svg viewBox="0 0 40 60" width="${capWidth * 1.3}" height="${height}">
+                        <ellipse cx="20" cy="55" rx="6" ry="2" fill="rgba(0,0,0,0.4)" />
+                        
+                        <path d="M20,55 Q${16 + Math.random()*8},35 20,15" 
+                              stroke="#112415" 
+                              stroke-width="${3 + Math.random()*2}" 
+                              fill="none" 
+                              stroke-linecap="round"/>
+                        
+                        <ellipse cx="20" cy="15" rx="${capWidth / 2}" ry="3" fill="#183620" />
+                        
+                        <path d="M${20 - capWidth/2},15 C${20 - capWidth/2},${15 - capHeight * 1.5} ${20 + capWidth/2},${15 - capHeight * 1.5} ${20 + capWidth/2},15 Z" 
+                              fill="#1e4426" />
+                        
+                        <circle cx="20" cy="${15 - capHeight/2}" r="1.5" fill="#39ff14" opacity="0.9" />
+                        <circle cx="${20 - capWidth/5}" cy="${14 - capHeight/3}" r="1" fill="#39ff14" opacity="0.8" />
+                        <circle cx="${20 + capWidth/4}" cy="${16 - capHeight/4}" r="1.2" fill="#39ff14" opacity="0.8" />
+                    </svg>
+                </div>
+            `;
         }
 
+        containerWrapper.innerHTML = clusterHTML;
         section.appendChild(containerWrapper);
     });
 });
