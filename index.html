@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Terrarium | The Dandelion Collective | Botanica Boomtown</title>
+    <title>The Terrarium | Botanica Boomtown</title>
     <style>
-        /* Base Styling & Custom Fonts */
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Metrophobic&display=swap');
 
         :root {
-            --bg-color: #0b130e;       /* Deep mossy black-green */
-            --card-bg: #14221a;        /* Translucent forest card background */
-            --text-main: #e2f0e9;      /* Crisp off-white for reading text */
-            --neon-green: #39ff14;     /* Bioluminescent radioactive green */
-            --neon-glow: #10b981;      /* Deep emerald secondary glow */
+            --bg-color: #0b130e;
+            --card-bg: #14221a;
+            --text-main: #e2f0e9;
+            --neon-green: #39ff14;
+            --neon-glow: #10b981;
         }
 
         * {
@@ -29,23 +28,21 @@
             line-height: 1.8;
             padding: 20px 15px;
             background-image: radial-gradient(circle at 50% 20%, #173625 0%, #0b130e 70%);
-            overflow-x: hidden; /* Prevents horizontal scroll when sidebar is hidden */
+            overflow-x: hidden;
         }
 
         .container {
             max-width: 600px;
             margin: 0 auto;
-            position: relative;
         }
 
-        /* --- Header & Navigation Menu Button --- */
         header {
             text-align: center;
             padding: 60px 0 20px;
             position: relative;
         }
 
-        /* The Burger Button to open the sidebar */
+        /* Pure Hamburger Icon Button */
         .menu-btn {
             position: absolute;
             top: 10px;
@@ -53,15 +50,14 @@
             background: none;
             border: 1px solid var(--neon-green);
             color: var(--neon-green);
-            padding: 8px 15px;
-            border-radius: 4px;
-            font-family: 'Metrophobic', sans-serif;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 1.4rem;
             cursor: pointer;
             text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
             box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
-            font-size: 0.9rem;
-            letter-spacing: 1px;
             z-index: 10;
+            line-height: 1;
         }
 
         header h1 {
@@ -86,25 +82,24 @@
         .divider {
             height: 2px;
             background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
-            margin: 20px 0 30px;
+            margin: 20px 0 40px;
         }
 
         /* --- Side Navigation Panel --- */
         .sidebar {
             position: fixed;
             top: 0;
-            left: -280px; /* Hidden off-screen by default */
+            left: -280px;
             width: 280px;
             height: 100%;
             background-color: #070d0a;
             border-right: 1px solid rgba(57, 255, 20, 0.3);
             z-index: 100;
-            transition: left 0.3s ease; /* Smooth slide-in animation */
+            transition: left 0.3s ease;
             padding: 30px 20px;
             box-shadow: 5px 0 25px rgba(0,0,0,0.8);
         }
 
-        /* Class added by JavaScript to slide the panel in */
         .sidebar.open {
             left: 0;
         }
@@ -143,7 +138,6 @@
             display: block;
             padding: 8px 0;
             border-bottom: 1px solid rgba(226, 240, 233, 0.1);
-            transition: all 0.2s ease;
         }
 
         .sidebar ul li a:hover, .sidebar ul li a.active {
@@ -153,7 +147,6 @@
             text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
         }
 
-        /* Dark overlay to blur out background when menu is open */
         .overlay {
             display: none;
             position: fixed;
@@ -169,50 +162,20 @@
             display: block;
         }
 
-        /* --- Content Sections Control --- */
+        /* Welcome Landing Section */
         section {
             background-color: var(--card-bg);
             border: 1px solid rgba(57, 255, 20, 0.15);
             border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 30px;
+            padding: 30px;
+            text-align: center;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            
-            /* Hidden by default, toggled via JavaScript */
-            display: none; 
-            animation: fadeIn 0.4s ease forwards;
         }
 
-        /* Keeps the active section visible */
-        section.active-page {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h2 {
+        section h2 {
             font-family: 'Cinzel', serif;
             color: #ffffff;
-            font-size: 1.4rem;
             margin-bottom: 15px;
-            border-bottom: 1px dashed rgba(226, 240, 233, 0.2);
-            padding-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        #narrative p {
-            font-size: 1.1rem;
-            color: #f0f7f4;
-            white-space: pre-line;
-        }
-
-        #about-project p, #creators p {
-            font-size: 1rem;
-            color: #c2d6cc;
         }
 
         footer {
@@ -220,7 +183,6 @@
             padding: 30px 0;
             font-size: 0.85rem;
             color: rgba(226, 240, 233, 0.4);
-            letter-spacing: 1px;
         }
     </style>
 </head>
@@ -232,34 +194,25 @@
         <button class="close-btn" onclick="toggleMenu()">&times;</button>
         <h3>Navigation</h3>
         <ul>
-            <li><a href="#" class="active" onclick="switchPage('narrative')">The Narrative</a></li>
-            <li><a href="#" onclick="switchPage('about-project')">About the Project</a></li>
-            <li><a href="#" onclick="switchPage('creators')">The Creators</a></li>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="narrative.html">The Narrative</a></li>
+            <li><a href="about.html">About the Project</a></li>
+            <li><a href="creators.html">The Creators</a></li>
         </ul>
     </nav>
 
     <div class="container">
         <header>
-            <button class="menu-btn" onclick="toggleMenu()">MENU ☰</button>
+            <button class="menu-btn" onclick="toggleMenu()">☰</button>
             <h1>The Terrarium</h1>
             <p>The Dandelion Collective // Botanica Boomtown 2026</p>
         </header>
 
         <div class="divider"></div>
 
-        <section id="narrative" class="active-page">
-            <h2>The Narrative</h2>
-            <p></p>
-        </section>
-
-        <section id="about-project">
-            <h2>About the Project</h2>
-            <p></p>
-        </section>
-
-        <section id="creators">
-            <h2>The Creators</h2>
-            <p></p>
+        <section id="home-welcome">
+            <h2>Welcome to the Canopy</h2>
+            <p>You've uncovered something breathing in the undergrowth. Tap the menu icon above to explore the layers of this installation.</p>
         </section>
 
         <footer>
@@ -269,31 +222,8 @@
 
     <script>
         function toggleMenu() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-            sidebar.classList.toggle('open');
-            overlay.classList.toggle('show');
-        }
-
-        function switchPage(pageId) {
-            // 1. Hide all sections
-            const sections = document.querySelectorAll('section');
-            sections.forEach(sec => sec.classList.remove('active-page'));
-
-            // 2. Show the selected section
-            document.getElementById(pageId).classList.add('active-page');
-
-            // 3. Update the active style in the sidebar links
-            const links = document.querySelectorAll('.sidebar ul li a');
-            links.forEach(link => {
-                link.classList.remove('active');
-                if(link.getAttribute('onclick').includes(pageId)) {
-                    link.classList.add('active');
-                }
-            });
-
-            // 4. Automatically close the menu after a choice is made
-            toggleMenu();
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('show');
         }
     </script>
 </body>
