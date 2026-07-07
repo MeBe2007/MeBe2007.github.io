@@ -1,4 +1,3 @@
-JavaScript
 const CONFIG = {
     crawlerCount: 4,
     flyerCount: 3
