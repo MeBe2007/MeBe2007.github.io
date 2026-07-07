@@ -1,13 +1,10 @@
-/ Wait for the page structure to load completely
 document.addEventListener("DOMContentLoaded", () => {
-    // Find every card section on the current page
     const sections = document.querySelectorAll("section");
 
     sections.forEach((section, index) => {
         const clusterContainer = document.createElement("div");
         clusterContainer.className = "cluster-container";
 
-        // Raw SVG code for the living mushroom cluster
         clusterContainer.innerHTML = `
             <div class="mushroom-cluster">
                 <svg viewBox="0 0 40 40" width="35" height="35">
@@ -29,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         `;
 
-        // Vary the positions slightly on different cards so they look natural
+
         const clusterElement = clusterContainer.querySelector(".mushroom-cluster");
         if (index % 2 === 0) {
             clusterElement.style.right = "25px";
@@ -41,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
             clusterElement.style.transform = "scaleX(-1)";
         }
 
-        // Drop the mushrooms directly into the card section
+
         section.appendChild(clusterContainer);
     });
 });
