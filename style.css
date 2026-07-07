@@ -234,7 +234,7 @@ footer {
 .insect.flyer .right-wing { transform-origin: 15px 12px; animation: flapR 0.06s infinite linear; }
 
 /* ==========================================================================
-   5. DEEP-FOREST REALISTIC MYCELIUM TAKEOVER LAYER
+   5. REALISTIC BIOLUMINESCENT FOXFIRE LAYER (Static Scale, Continuous Glow)
    ========================================================================== */
 .mycelium-box-layer, 
 .mycelium-title-layer {
@@ -256,60 +256,60 @@ footer {
     z-index: 9999;
 }
 
-/* --- Anatomy Texturing & Realism Modifiers --- */
+/* --- Anatomical Renderings --- */
 .shroom-specimen {
     transform-origin: bottom center;
-    will-change: filter, transform;
-    animation: parasitePulse 5s infinite ease-in-out;
+    will-change: filter;
+    /* 12-second cycle: extremely slow, continuous chemical burn, ZERO digital scaling/twitching */
+    animation: chemicalGlow 12s infinite ease-in-out;
 }
 
 .shroom-specimen svg {
     display: block;
 }
 
-/* Stems: Give them a rich, organic bark/moss texture instead of a single flat color */
-.shroom-specimen svg path[stroke^="#11"] {
+/* Fibrous Bark Stems */
+.shroom-specimen svg path[stroke^="#11"],
+.shroom-specimen svg path[stroke^="#16"] {
     stroke: url(#stemGradient) !important;
-    filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.8));
+    filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.95));
 }
 
-/* Caps: Transforming vector shapes into volumetric fleshy hoods with real depth */
+/* Fleshy, Volumetric Caps */
 .shroom-specimen svg path[fill^="#1e"], 
 .shroom-specimen svg path[fill^="#1b"],
 .shroom-specimen svg path[fill^="#14"],
-.shroom-specimen svg path[fill^="#18"] {
+.shroom-specimen svg path[fill^="#17"] {
     fill: url(#capGradient) !important;
-    filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.85));
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.9));
 }
 
-/* Gills: Deepening the under-cap shadows where spores fall */
+/* Smoked Under-Gills */
 .shroom-specimen svg ellipse[fill^="#2d"],
 .shroom-specimen svg ellipse[fill^="#22"],
+.shroom-specimen svg ellipse[fill^="#25"],
 .shroom-specimen svg ellipse[fill^="#29"],
 .shroom-specimen svg ellipse[fill^="#34"] {
     fill: url(#gillsGradient) !important;
 }
 
-/* Bioluminescent Dots: Making them look like internal glowing embers rather than flat dots */
+/* Internalized Chemical Bioluminescence: Soft, embedded emissions */
 .shroom-specimen svg circle[fill="#39ff14"] {
-    fill: #ffffff !important;
-    box-shadow: 0 0 10px #39ff14;
-    filter: drop-shadow(0 0 3px #22c55e) drop-shadow(0 0 8px #39ff14);
+    fill: #e8ffd9 !important; /* Pale, decay-white core instead of neon green */
+    filter: drop-shadow(0 0 3px #15803d) drop-shadow(0 0 8px rgba(74, 222, 128, 0.6));
 }
 
-/* --- Highly Dynamic Breathing Glow Animation --- */
-@keyframes parasitePulse {
+/* --- Deep-Woods Foxfire Breathing Engine --- */
+@keyframes chemicalGlow {
     0%, 100% { 
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.9)) 
-                drop-shadow(0 0 3px rgba(57, 255, 20, 0.15))
-                brightness(0.85);
-        transform: scale(0.97) ease-in-out;
+        filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.95)) 
+                drop-shadow(0 0 4px rgba(74, 222, 128, 0.15))
+                brightness(0.75);
     }
     50% { 
-        filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.7)) 
-                drop-shadow(0 0 16px rgba(57, 255, 20, 0.6)) 
-                drop-shadow(0 0 6px #10b981) 
-                brightness(1.25);
-        transform: scale(1.03) ease-in-out;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.85)) 
+                drop-shadow(0 0 12px rgba(57, 255, 20, 0.45)) 
+                drop-shadow(0 0 4px rgba(16, 185, 129, 0.3)) 
+                brightness(1.05); /* Soft light swelling, no size twitching */
     }
 }
