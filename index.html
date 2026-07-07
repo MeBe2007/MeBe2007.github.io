@@ -79,6 +79,21 @@
             letter-spacing: 1px;
         }
 
+        header p span {
+            display: inline-block;
+        }
+
+        header p .line-two {
+            display: block;
+            margin-top: 4px;
+        }
+        @media (min-width: 480px) {
+            header p .line-two {
+                display: inline;
+                margin-top: 0;
+            }
+        }
+
         .divider {
             height: 2px;
             background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
@@ -205,7 +220,10 @@
         <header>
             <button class="menu-btn" onclick="toggleMenu()">☰</button>
             <h1>The Terrarium</h1>
-            <p>The Dandelion Collective / Botanica / Boomtown 2026</p>
+            <p>
+                <span class="line-one">The Dandelion Collective</span>
+                <span class="line-two">Botanica / Boomtown 2026</span>
+            </p>
         </header>
 
         <div class="divider"></div>
