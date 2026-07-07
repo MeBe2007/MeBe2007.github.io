@@ -236,8 +236,7 @@ footer {
 /* ==========================================================================
    5. REALISTIC BIOLUMINESCENT FOXFIRE LAYER (Textured Grain Core)
    ========================================================================== */
-.mycelium-box-layer, 
-.mycelium-title-layer {
+.mycelium-box-layer {
     position: absolute;
     top: 0;
     left: 0;
@@ -265,11 +264,6 @@ footer {
 .shroom-specimen svg {
     display: block;
     overflow: visible;
-}
-
-/* Fleshy texture depth enhancement via canvas overlay mix modes */
-.shroom-specimen svg path {
-    mix-blend-mode: normal;
 }
 
 /* Micro Glowing Spores: Embedded light emissions, not painted dots */
