@@ -234,7 +234,7 @@ footer {
 .insect.flyer .right-wing { transform-origin: 15px 12px; animation: flapR 0.06s infinite linear; }
 
 /* ==========================================================================
-   5. REALISTIC BIOLUMINESCENT FOXFIRE LAYER (Textured Grain Core)
+   5. REALISTIC SHELF FUNGI LAYER (Layered Brackets)
    ========================================================================== */
 .mycelium-box-layer {
     position: absolute;
@@ -256,9 +256,10 @@ footer {
 }
 
 .shroom-specimen {
-    transform-origin: bottom center;
+    transform-origin: center left;
     will-change: filter;
-    animation: chemicalGlow 14s infinite ease-in-out;
+    /* Static, rock-solid physical placement with an incredibly slow light shift */
+    animation: sulfurGlow 16s infinite ease-in-out;
 }
 
 .shroom-specimen svg {
@@ -266,30 +267,22 @@ footer {
     overflow: visible;
 }
 
-/* Micro Glowing Spores: Embedded light emissions, not painted dots */
+/* Golden Sulphur Crevice Spores */
 .shroom-specimen svg .glow-spore {
-    filter: drop-shadow(0 0 2px #22c55e) drop-shadow(0 0 6px #39ff14);
+    fill: #fef08a !important;
+    filter: drop-shadow(0 0 2px #d97706) drop-shadow(0 0 6px #facc15);
 }
 
-.spec-shelf .glow-spore {
-    filter: drop-shadow(0 0 2px #eab308) drop-shadow(0 0 6px #facc15);
+/* Heavy drop shadow to mimic real wood-bracket contact points */
+.spec-shelf { 
+    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.9)); 
 }
 
-.spec-ghost .glow-spore {
-    filter: drop-shadow(0 0 3px #0d9488) drop-shadow(0 0 7px #2dd4bf);
-}
-
-/* Ambient shadow drop rules to completely ground them onto the interfaces */
-.spec-shelf { filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.8)); }
-.spec-ghost { filter: drop-shadow(0 4px 8px rgba(0,0,0,0.85)); }
-.spec-toadstool { filter: drop-shadow(-2px 4px 6px rgba(0,0,0,0.8)); }
-
-/* --- Slow, Organic Biological Light Pulse --- */
-@keyframes chemicalGlow {
+@keyframes sulfurGlow {
     0%, 100% { 
-        filter: brightness(0.75) contrast(1.05); 
+        filter: brightness(0.85) drop-shadow(3px 4px 6px rgba(0,0,0,0.95)); 
     }
     50% { 
-        filter: brightness(1.15) contrast(0.95); 
+        filter: brightness(1.1) drop-shadow(5px 6px 12px rgba(0,0,0,0.8)); 
     }
 }
