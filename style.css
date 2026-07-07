@@ -234,7 +234,7 @@ footer {
 .insect.flyer .right-wing { transform-origin: 15px 12px; animation: flapR 0.06s infinite linear; }
 
 /* ==========================================================================
-   5. REALISTIC SHELF FUNGI TAKEOVER CORE
+   5. DEEP REALISM TRUNK-ANCHORED MUSHROOM CORES (Asymmetrical Fix)
    ========================================================================== */
 .mycelium-box-layer {
     position: absolute;
@@ -273,67 +273,58 @@ footer {
 }
 
 @keyframes chemicalGlow {
-    0%, 100% { filter: brightness(0.8) drop-shadow(5px 5px 6px rgba(0,0,0,0.9)); }
-    50% { filter: brightness(1.15) drop-shadow(8px 10px 14px rgba(0,0,0,0.75)); }
-}
-
-/* BASE SPECIFIC DIRECTION HANDLING (Zero calculations, pure anchoring) */
-.shroom-left {
-    right: 100%; /* Automatically snaps the flat base to the outside left border line */
-    transform: scaleX(-1); /* Flips the graphic cleanly out into the gutter space */
-}
-
-.shroom-right {
-    left: 100%; /* Automatically snaps the flat base to the outside right border line */
+    0%, 100% { filter: brightness(0.8) drop-shadow(4px 4px 5px rgba(0,0,0,0.9)); }
+    50% { filter: brightness(1.15) drop-shadow(6px 8px 12px rgba(0,0,0,0.75)); }
 }
 
 /* ==========================================================================
-   LAPTOP & LARGE WIDESCREEN MONITORS (min-width: 992px)
+   DESKTOP SCREEN LAYOUTS (Standard Desktop View)
    ========================================================================== */
 @media (min-width: 992px) {
     .shroom-specimen { width: 75px; height: 62px; }
     
-    /* Box Heights placement */
-    .left-t  { top: 20%; }
-    .left-b  { top: 65%; }
-    .right-t { top: 25%; }
-    .right-b { top: 60%; }
+    /* Left-facing brackets: the flat base line sits flush right at the container line */
+    .box-left-top      { right: 100%; top: 20%; }
+    .box-left-bottom   { right: 100%; top: 65%; }
     
-    /* Screen Overrides (Pulls them safely out of viewport bounds edges) */
-    .screen-l { left: 0; top: 15vh; }
-    .screen-r { right: 0; top: 72vh; }
+    /* Right-facing brackets: the flat base line sits flush left at the container line */
+    .box-right-top     { left: 100%; top: 25%; }
+    .box-right-bottom  { left: 100%; top: 60%; }
+    
+    /* Absolute outer screen parameters */
+    .screen-left-shroom  { left: 0; top: 15vh; width: 95px; height: 78px; }
+    .screen-right-shroom { right: 0; top: 72vh; width: 95px; height: 78px; }
 }
 
 /* ==========================================================================
-   MID-SIZE & NARROW LAPTOP SPLIT-SCREENS (768px to 991px)
+   EQUAL SPLIT-SCREEN LAPTOP ENVIRONMENT (Prevents elements from looking too big)
    ========================================================================== */
 @media (min-width: 768px) and (max-width: 991px) {
-    .shroom-specimen { width: 52px; height: 43px; }
+    .shroom-specimen { width: 50px; height: 41px; }
     
-    .left-t  { top: 20%; }
-    .left-b  { top: 65%; }
-    .right-t { top: 25%; }
-    .right-b { top: 60%; }
+    .box-left-top      { right: 100%; top: 20%; }
+    .box-left-bottom   { right: 100%; top: 65%; }
     
-    .screen-l { left: 0; top: 15vh; }
-    .screen-r { right: 0; top: 72vh; }
+    .box-right-top     { left: 100%; top: 25%; }
+    .box-right-bottom  { left: 100%; top: 60%; }
+    
+    .screen-left-shroom  { left: 0; top: 15vh; width: 65px; height: 54px; }
+    .screen-right-shroom { right: 0; top: 72vh; width: 65px; height: 54px; }
 }
 
 /* ==========================================================================
-   MOBILE PHONES (max-width: 767px)
+   MOBILE PHONES (Safely scaled down to clear paragraph panels)
    ========================================================================== */
 @media (max-width: 767px) {
-    .shroom-specimen { width: 38px; height: 32px; }
+    .shroom-specimen { width: 34px; height: 28px; }
     
-    /* Pulls them inward slightly so they sit on the compact phone layout rim */
-    .shroom-left  { right: auto; left: -10px; transform: scaleX(-1); }
-    .shroom-right { left: auto; right: -10px; }
+    /* Pins them right to the padding boundaries so they stay out of text grids */
+    .box-left-top      { left: -15px; top: 22%; }
+    .box-left-bottom   { left: -15px; top: 68%; }
     
-    .left-t  { top: 22%; }
-    .left-b  { top: 68%; }
-    .right-t { top: 25%; }
-    .right-b { top: 60%; }
+    .box-right-top     { right: -15px; top: 25%; }
+    .box-right-bottom  { right: -15px; top: 60%; }
     
-    .screen-l { left: -5px; top: 25vh; }
-    .screen-r { right: -5px; top: 75vh; }
+    .screen-left-shroom  { left: -5px; top: 25vh; }
+    .screen-right-shroom { right: -5px; top: 75vh; }
 }
