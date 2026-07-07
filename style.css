@@ -4,11 +4,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=500;700&family=Metrophobic&display=swap');
 
 :root {
-    --bg-color: #121e15;     /* Deep, rich forest floor midnight */
-    --card-bg: rgba(22, 38, 28, 0.75); /* Dark greenhouse translucent tint */
-    --text-main: #e2f0e9;
+    --bg-color: #0b1a14;     /* Deep, rich forest floor midnight */
+    --card-bg: rgba(16, 36, 29, 0.8); /* Dark greenhouse translucent tint */
+    --text-main: #e8f5ee;
     --neon-green: #39ff14;
-    --neon-glow: #10b981;
+    --neon-glow: #00f5a0;
 }
 
 * {
@@ -24,7 +24,7 @@ body {
     line-height: 1.8;
     padding: 20px 15px;
     /* Soft, elegant canopy glow wash - clean and dark, not chaotic */
-    background-image: radial-gradient(circle at 50% 20%, #1a3a25 0%, #121e15 80%);
+    background-image: radial-gradient(circle at 50% 20%, #15382a 0%, #0b1a14 85%);
     background-attachment: fixed; 
     overflow-x: hidden;
 }
@@ -105,12 +105,12 @@ header p .line-two {
     left: -280px;
     width: 280px;
     height: 100%;
-    background-color: #152419;
+    background-color: #0e2119;
     border-right: 1px solid rgba(57, 255, 20, 0.3);
     z-index: 1000;
     transition: left 0.3s ease;
     padding: 30px 20px;
-    box-shadow: 5px 0 25px rgba(0,0,0,0.5);
+    box-shadow: 5px 0 25px rgba(0,0,0,0.6);
 }
 
 .sidebar.open { left: 0; }
@@ -192,7 +192,7 @@ section h2 {
 
 section p {
     font-size: 1.1rem;
-    color: #f0f7f4;
+    color: #ffffff;
     white-space: pre-line;
 }
 
