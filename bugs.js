@@ -1,6 +1,6 @@
 const CONFIG = {
-    crawlerCount: 4,
-    flyerCount: 3
+    crawlerCount: 10,
+    flyerCount: 10
 };
 
 const bugs = [];
