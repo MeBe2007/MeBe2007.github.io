@@ -1,13 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     const sections = document.querySelectorAll("section");
 
-    function generateSideProfileBracket(offset, isLeft, scale, delay) {
+    function generateSideProfileBracket(positionClass, delay) {
         const id = `profile-shelf-${Math.floor(Math.random() * 10000)}`;
         
-        // Dynamic device sizing: scale down significantly if the screen is a phone
-        const isMobile = window.innerWidth < 768;
-        const finalScale = isMobile ? (scale * 0.55).toFixed(2) : scale;
-
         const capTexture = `
             <filter id="cap-texture-${id}">
                 <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" result="noise" />
@@ -47,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         <stop offset="100%" stop-color="#a16207" />
                     </linearGradient>
                 </defs>
-                
                 <path d="M 0,10 Q 30,30 20,90 Q 0,70 0,10 Z" fill="#030201" filter="blur(4px)" opacity="0.9" />
                 <g transform="translate(0, 35)">${singleTierHTML(`poreGrad-${id}`, `crustGrad-${id}`)}</g>
                 <g transform="translate(0, 15) scale(0.88)">${singleTierHTML(`poreGrad-${id}`, `crustGrad-${id}`)}</g>
@@ -57,53 +52,32 @@ document.addEventListener("DOMContentLoaded", () => {
             </svg>
         `;
 
-        const flipTransform = isLeft ? 'scaleX(-1)' : '';
-
-        // Using flexible rem sizes for container bounding boxes to scale seamlessly
         return `
-            <div class="shroom-specimen spec-shelf" style="
-                position: absolute;
-                width: ${isMobile ? '45px' : '95px'};
-                height: ${isMobile ? '38px' : '80px'};
-                ${offset}
-                transform: ${flipTransform} scale(${finalScale});
-                animation-delay: ${delay}s;
-            ">${svgContent}</div>`;
+            <div class="shroom-specimen spec-shelf ${positionClass}" style="animation-delay: ${delay}s;">
+                ${svgContent}
+            </div>`;
     }
 
-    // 1. CARDS COLONIZATION (Responsive offsets)
+    // Populate glass panel borders
     sections.forEach((section) => {
-        let growthHTML = '';
-        const isMobile = window.innerWidth < 768;
-        
-        // Left Edge Anchors: Uses responsive percentage/viewport overrides
-        const leftOffset = isMobile ? 'left: -32px;' : 'left: -85px;';
-        growthHTML += generateSideProfileBracket(`${leftOffset} top: 22%;`, true, 1.05, 0.1);
-        growthHTML += generateSideProfileBracket(`${leftOffset} top: 68%;`, true, 0.88, 2.3);
-
-        // Right Edge Anchors: RESTORED both shelves, shifting them slightly outward on desktop
-        const rightOffset = isMobile ? 'right: -12px;' : 'right: -15px;';
-        growthHTML += generateSideProfileBracket(`${rightOffset} top: 25%;`, false, 0.95, 0.7);
-        growthHTML += generateSideProfileBracket(`${rightOffset} top: 60%;`, false, 1.1, 1.4);
-
         const boxLayer = document.createElement("div");
         boxLayer.className = "mycelium-box-layer";
-        boxLayer.innerHTML = growthHTML;
+        
+        boxLayer.innerHTML = 
+            generateSideProfileBracket('shroom-left-top', 0.1) +
+            generateSideProfileBracket('shroom-left-bottom', 2.3) +
+            generateSideProfileBracket('shroom-right-top', 0.7) +
+            generateSideProfileBracket('shroom-right-bottom', 1.4);
+            
         section.appendChild(boxLayer);
     });
 
-    // 2. VIEWPORT SIDEWALL COLONIZATION
+    // Populate viewport screen borders
     const screenLayer = document.createElement("div");
     screenLayer.className = "mycelium-screen-layer";
-    let screenHTML = '';
-    const isMobile = window.innerWidth < 768;
-    
-    const screenLeft = isMobile ? 'left: -20px;' : 'left: -65px;';
-    const screenRight = isMobile ? 'right: -5px;' : 'right: -10px;';
-
-    screenHTML += generateSideProfileBracket(`${screenLeft} top: 28vh;`, true, 1.35, 0.5);
-    screenHTML += generateSideProfileBracket(`${screenRight} top: 72vh;`, false, 1.25, 1.9);
-    
-    screenLayer.innerHTML = screenHTML;
+    screenLayer.innerHTML = 
+        generateSideProfileBracket('screen-left-shroom', 0.5) +
+        generateSideProfileBracket('screen-right-shroom', 1.9);
+        
     document.body.appendChild(screenLayer);
 });
