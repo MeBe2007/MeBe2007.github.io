@@ -58,26 +58,26 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>`;
     }
 
-    // Populate glass panel borders
+    // Populate box margins with clear left/right tags
     sections.forEach((section) => {
         const boxLayer = document.createElement("div");
         boxLayer.className = "mycelium-box-layer";
         
         boxLayer.innerHTML = 
-            generateSideProfileBracket('shroom-left-top', 0.1) +
-            generateSideProfileBracket('shroom-left-bottom', 2.3) +
-            generateSideProfileBracket('shroom-right-top', 0.7) +
-            generateSideProfileBracket('shroom-right-bottom', 1.4);
+            generateSideProfileBracket('shroom-left left-t', 0.1) +
+            generateSideProfileBracket('shroom-left left-b', 2.3) +
+            generateSideProfileBracket('shroom-right right-t', 0.7) +
+            generateSideProfileBracket('shroom-right right-b', 1.4);
             
         section.appendChild(boxLayer);
     });
 
-    // Populate viewport screen borders
+    // Populate screen margins with clear left/right tags
     const screenLayer = document.createElement("div");
     screenLayer.className = "mycelium-screen-layer";
     screenLayer.innerHTML = 
-        generateSideProfileBracket('screen-left-shroom', 0.5) +
-        generateSideProfileBracket('screen-right-shroom', 1.9);
+        generateSideProfileBracket('shroom-left screen-l', 0.5) +
+        generateSideProfileBracket('shroom-right screen-r', 1.9);
         
     document.body.appendChild(screenLayer);
 });
