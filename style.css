@@ -234,7 +234,7 @@ footer {
 .insect.flyer .right-wing { transform-origin: 15px 12px; animation: flapR 0.06s infinite linear; }
 
 /* ==========================================================================
-   5. MUSHROOM CLUSTER ENVIRONMENT RULES
+   5. PROCEDURAL BIOLUMINESCENT FUNGI LAYER
    ========================================================================== */
 .cluster-container {
     position: absolute;
@@ -245,20 +245,23 @@ footer {
     pointer-events: none;
 }
 
-.mushroom-cluster {
+.mushroom-specimen {
     position: absolute;
-    bottom: -8px; /* Flushed directly to the container frame rim */
-    z-index: 20;
-    pointer-events: none;
-    opacity: 0.9;
+    bottom: -4px; /* Flushed perfectly to the frame seam line */
+    z-index: 30;  /* Forces them to physically step forward over the borders */
+    transform-origin: bottom center;
+    will-change: filter, transform;
+    animation: organicPulse 4s infinite ease-in-out;
 }
 
-@keyframes sporeGlow {
-    0%, 100% { filter: drop-shadow(0 0 2px rgba(57, 255, 20, 0.25)) brightness(0.85); }
-    50% { filter: drop-shadow(0 0 8px rgba(57, 255, 20, 0.65)) brightness(1.2); }
-}
-
-.mushroom-cluster svg {
-    animation: sporeGlow 4s infinite ease-in-out;
-    display: block;
+/* Smooth organic light breathing loop */
+@keyframes organicPulse {
+    0%, 100% { 
+        filter: drop-shadow(0 0 2px rgba(57, 255, 20, 0.2)) brightness(0.8);
+        transform: scale(0.95);
+    }
+    50% { 
+        filter: drop-shadow(0 0 12px rgba(57, 255, 20, 0.85)) drop-shadow(0 0 4px #10b981) brightness(1.2);
+        transform: scale(1.05);
+    }
 }
