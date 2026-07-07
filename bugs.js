@@ -1,69 +1,126 @@
-const bugCount = 8;
+const CONFIG = {
+    crawlerCount: 5,
+    flyerCount: 4,
+    padding: 10
+};
+
 const bugs = [];
 
-for (let i = 0; i < bugCount; i++) {
-    const bug = document.createElement('div');
-    bug.className = 'forest-bug';
+// Helper to inject raw SVG insect designs
+function createBugElement(type) {
+    const container = document.createElement('div');
+    container.className = `insect ${type}`;
     
-    // Choose a random edge to start on (0: Left, 1: Right, 2: Top, 3: Bottom)
-    const edge = Math.floor(Math.random() * 4);
-    let x = 0, y = 0;
+    if (type === 'crawler') {
+        // A beetle/ant style shape with a body and tiny legs
+        container.innerHTML = `
+            <svg viewBox="0 0 20 30" width="12" height="18">
+                <path d="M2,10 L8,12 M2,15 L8,15 M2,20 L8,18" stroke="#153019" stroke-width="1.5"/>
+                <path d="M18,10 L12,12 M18,15 L12,15 M18,20 L12,18" stroke="#153019" stroke-width="1.5"/>
+                <ellipse cx="10" cy="15" rx="4" ry="7" fill="#1b3d22"/>
+                <circle cx="10" cy="6" r="2.5" fill="#153019"/>
+                <path d="M8,3 Q6,0 4,2 M12,3 Q14,0 16,2" stroke="#153019" stroke-width="1" fill="none"/>
+            </svg>`;
+    } else {
+        // A winged flyer with translucent bioluminescent wings
+        container.innerHTML = `
+            <svg viewBox="0 0 30 30" width="20" height="20">
+                <circle cx="15" cy="20" r="3" fill="#ffffff" class="glow-core"/>
+                <ellipse cx="9" cy="12" rx="6" ry="3" fill="rgba(57, 255, 20, 0.3)" transform="rotate(-30 9 12)" class="left-wing"/>
+                <ellipse cx="21" cy="12" rx="6" ry="3" fill="rgba(57, 255, 20, 0.3)" transform="rotate(30 21 12)" class="right-wing"/>
+                <ellipse cx="15" cy="14" rx="2" ry="5" fill="#1f2e22"/>
+            </svg>`;
+    }
     
-    if (edge === 0) { x = 5; y = Math.random() * window.innerHeight; }
-    else if (edge === 1) { x = window.innerWidth - 10; y = Math.random() * window.innerHeight; }
-    else if (edge === 2) { x = Math.random() * window.innerWidth; y = 5; }
-    else { x = Math.random() * window.innerWidth; y = window.innerHeight - 10; }
+    document.body.appendChild(container);
+    return container;
+}
 
-    document.body.appendChild(bug);
-
+// Spawn the crawling population
+for (let i = 0; i < CONFIG.crawlerCount; i++) {
     bugs.push({
-        element: bug,
-        x: x,
-        y: y,
-        angle: Math.random() * Math.PI * 2, // Direction they are facing
-        speed: Math.random() * 0.4 + 0.2,   // Slow, gentle crawling speed
-        turnSpeed: 0,
-        wobbleSpeed: Math.random() * 0.05 + 0.02,
-        wobbleTime: Math.random() * 100,
-        pulseDelay: Math.random() * 3
+        element: createBugElement('crawler'),
+        type: 'crawler',
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        angle: Math.random() * Math.PI * 2,
+        speed: Math.random() * 0.3 + 0.1,
+        turnTimer: Math.random() * 100
     });
 }
 
-// Frame-by-frame autonomous steering loop
-function updateBugs() {
+// Spawn the flying population
+for (let i = 0; i < CONFIG.flyerCount; i++) {
+    bugs.push({
+        element: createBugElement('flyer'),
+        type: 'flyer',
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        angle: Math.random() * Math.PI * 2,
+        speed: Math.random() * 0.8 + 0.5,
+        targetSpeed: Math.random() * 0.8 + 0.5,
+        driftX: Math.random() * 100,
+        driftY: Math.random() * 100
+    });
+}
+
+// Global Animation Loop running constantly in the background
+function loop() {
     bugs.forEach(bug => {
-        bug.wobbleTime += bug.wobbleSpeed;
+        if (bug.type === 'crawler') {
+            // Crawlers move slowly, pause occasionally, and stay near borders/edges
+            bug.turnTimer--;
+            if (bug.turnTimer <= 0) {
+                bug.angle += (Math.random() - 0.5) * 1.5;
+                bug.turnTimer = Math.random() * 150 + 50;
+                // Occasional sudden scurry or stop
+                bug.speed = Math.random() > 0.3 ? Math.random() * 0.3 + 0.1 : 0;
+            }
+            
+            bug.x += Math.cos(bug.angle) * bug.speed;
+            bug.y += Math.sin(bug.angle) * bug.speed;
+            
+            // Constrain tightly to screen boundaries
+            if (bug.x < CONFIG.padding) { bug.x = CONFIG.padding; bug.angle = 0; }
+            if (bug.x > window.innerWidth - CONFIG.padding - 12) { bug.x = window.innerWidth - CONFIG.padding - 12; bug.angle = Math.PI; }
+            if (bug.y < CONFIG.padding) { bug.y = CONFIG.padding; bug.angle = Math.PI / 2; }
+            if (bug.y > window.innerHeight - CONFIG.padding - 18) { bug.y = window.innerHeight - CONFIG.padding - 18; bug.angle = -Math.PI / 2; }
+
+        } else {
+            // Flyers drift completely across the entire screen in organic, fluid curves
+            bug.driftX += 0.01;
+            bug.driftY += 0.01;
+            
+            // Subtle angle changes using natural math drift paths
+            bug.angle += (Math.sin(bug.driftX) * 0.02) + (Math.random() - 0.5) * 0.05;
+            
+            bug.x += Math.cos(bug.angle) * bug.speed;
+            bug.y += Math.sin(bug.angle) * bug.speed;
+            
+            // Screen wrapping: when a flyer leaves one side, it smoothly emerges on the other
+            if (bug.x < -30) bug.x = window.innerWidth + 10;
+            if (bug.x > window.innerWidth + 30) bug.x = -10;
+            if (bug.y < -30) bug.y = window.innerHeight + 10;
+            if (bug.y > window.innerHeight + 30) bug.y = -10;
+        }
         
-        // Perlin-style random steering so they wander smoothly like a real ant or fly
-        bug.turnSpeed += (Math.random() - 0.5) * 0.1;
-        bug.turnSpeed *= 0.9; // Friction so they don't spin wildly
-        bug.angle += bug.turnSpeed;
-
-        // Move forward in the direction they are facing
-        bug.x += Math.cos(bug.angle) * bug.speed;
-        bug.y += Math.sin(bug.angle) * bug.speed;
-
-        // Force them to stick close to the margins of the screen
-        const padding = 15; 
-        if (bug.x < padding) { bug.x = padding; bug.angle = 0; }
-        if (bug.x > window.innerWidth - padding) { bug.x = window.innerWidth - padding; bug.angle = Math.PI; }
-        if (bug.y < padding) { bug.y = padding; bug.angle = Math.PI / 2; }
-        if (bug.y > window.innerHeight - padding) { bug.y = window.innerHeight - padding; bug.angle = -Math.PI / 2; }
-
-        // Apply physical coordinates and rotate the bug element to face its travel direction
-        bug.element.style.transform = `translate3d(${bug.x}px, ${bug.y}px, 0) rotate(${bug.angle + Math.PI/2}rd)`;
+        // Render coordinates and make their bodies head in the direction they are traveling
+        bug.element.style.transform = `translate3d(${bug.x}px, ${bug.y}px, 0) rotate(${bug.angle + Math.PI/2}rad)`;
     });
     
-    requestAnimationFrame(updateBugs);
+    requestAnimationFrame(loop);
 }
-requestAnimationFrame(updateBugs);
+requestAnimationFrame(loop);
 
-// When scrolling happens, it gently alerts them, making them hasten up slightly
+// Gentle disturbance behavior if someone scrolls, returning to normal instantly
 window.addEventListener('scroll', () => {
     bugs.forEach(bug => {
-        bug.speed = Math.random() * 1.2 + 0.6; // Scurry temporarily
-        setTimeout(() => {
-            bug.speed = Math.random() * 0.4 + 0.2; // Return to a slow crawl
-        }, 1200);
+        if (bug.type === 'flyer') {
+            bug.speed = bug.targetSpeed * 2.5;
+            setTimeout(() => bug.speed = bug.targetSpeed, 1000);
+        } else {
+            bug.speed = 0.8;
+            bug.angle += (Math.random() - 0.5) * 2;
+        }
     });
 });
