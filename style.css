@@ -234,7 +234,7 @@ footer {
 .insect.flyer .right-wing { transform-origin: 15px 12px; animation: flapR 0.06s infinite linear; }
 
 /* ==========================================================================
-   5. REALISTIC BIOLUMINESCENT FOXFIRE LAYER (Baked-In Rendering Core)
+   5. REALISTIC BIOLUMINESCENT FOXFIRE LAYER (Textured Grain Core)
    ========================================================================== */
 .mycelium-box-layer, 
 .mycelium-title-layer {
@@ -259,7 +259,7 @@ footer {
 .shroom-specimen {
     transform-origin: bottom center;
     will-change: filter;
-    animation: chemicalGlow 12s infinite ease-in-out;
+    animation: chemicalGlow 14s infinite ease-in-out;
 }
 
 .shroom-specimen svg {
@@ -267,22 +267,35 @@ footer {
     overflow: visible;
 }
 
-/* Micro Glowing Spore Matrix: Soft embedded emissions */
-.shroom-specimen svg .glow-spore {
-    filter: drop-shadow(0 0 3px #22c55e) drop-shadow(0 0 8px #39ff14);
+/* Fleshy texture depth enhancement via canvas overlay mix modes */
+.shroom-specimen svg path {
+    mix-blend-mode: normal;
 }
 
-/* Specific species environmental color multipliers */
-.spec-shelf { filter: drop-shadow(0 0 4px rgba(234,179,8,0.25)); }
-.spec-ghost { filter: drop-shadow(0 0 6px rgba(45,212,191,0.35)); }
-.spec-toadstool { filter: drop-shadow(0 0 5px rgba(34,197,94,0.3)); }
+/* Micro Glowing Spores: Embedded light emissions, not painted dots */
+.shroom-specimen svg .glow-spore {
+    filter: drop-shadow(0 0 2px #22c55e) drop-shadow(0 0 6px #39ff14);
+}
 
-/* --- Unhurried Chemical Breathe Loop --- */
+.spec-shelf .glow-spore {
+    filter: drop-shadow(0 0 2px #eab308) drop-shadow(0 0 6px #facc15);
+}
+
+.spec-ghost .glow-spore {
+    filter: drop-shadow(0 0 3px #0d9488) drop-shadow(0 0 7px #2dd4bf);
+}
+
+/* Ambient shadow drop rules to completely ground them onto the interfaces */
+.spec-shelf { filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.8)); }
+.spec-ghost { filter: drop-shadow(0 4px 8px rgba(0,0,0,0.85)); }
+.spec-toadstool { filter: drop-shadow(-2px 4px 6px rgba(0,0,0,0.8)); }
+
+/* --- Slow, Organic Biological Light Pulse --- */
 @keyframes chemicalGlow {
     0%, 100% { 
-        filter: brightness(0.8) drop-shadow(0 2px 4px rgba(0,0,0,0.85)); 
+        filter: brightness(0.75) contrast(1.05); 
     }
     50% { 
-        filter: brightness(1.2) drop-shadow(0 4px 10px rgba(0,0,0,0.6)); 
+        filter: brightness(1.15) contrast(0.95); 
     }
 }
