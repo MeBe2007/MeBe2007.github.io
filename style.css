@@ -1,8 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Metrophobic&display=swap');
+/* ==========================================================================
+   1. CORE ENVIRONMENT & CANOPY BACKGROUND
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=500;700&family=Metrophobic&display=swap');
 
 :root {
-    --bg-color: #0b130e;
-    --card-bg: #14221a;
+    --bg-color: #050a06;     /* Deep, rich forest floor midnight */
+    --card-bg: rgba(11, 22, 15, 0.8); /* Dark greenhouse translucent tint */
     --text-main: #e2f0e9;
     --neon-green: #39ff14;
     --neon-glow: #10b981;
@@ -15,18 +18,15 @@
 }
 
 body {
-    background-color: #040906; 
+    background-color: var(--bg-color);
     color: var(--text-main);
     font-family: 'Metrophobic', sans-serif;
     line-height: 1.8;
     padding: 20px 15px;
-    
-
-    background-image: 
-        radial-gradient(circle at 80% 10%, rgba(23, 64, 41, 0.4) 0%, transparent 50%),
-        radial-gradient(circle at 20% 80%, rgba(12, 38, 24, 0.3) 0%, transparent 60%),
-        linear-gradient(135deg, #050c07 0%, #0b140f 100%);
+    /* Soft, elegant canopy glow wash - clean and dark, not chaotic */
+    background-image: radial-gradient(circle at 50% 20%, #0f2417 0%, #050a06 80%);
     background-attachment: fixed; 
+    overflow-x: hidden;
 }
 
 .container {
@@ -34,6 +34,9 @@ body {
     margin: 0 auto;
 }
 
+/* ==========================================================================
+   2. HEADER & NAVIGATION
+   ========================================================================== */
 header {
     text-align: center;
     padding: 60px 0 20px;
@@ -53,7 +56,7 @@ header {
     cursor: pointer;
     text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
     box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
-    z-index: 10;
+    z-index: 100;
     line-height: 1;
 }
 
@@ -85,15 +88,9 @@ header p .line-two {
 }
 
 @media (min-width: 500px) {
-    header p span {
-        display: inline;
-    }
-    header p .line-two {
-        margin-top: 0;
-    }
-    header p .line-one::after {
-        content: " / ";
-    }
+    header p span { display: inline; }
+    header p .line-two { margin-top: 0; }
+    header p .line-one::after { content: " / "; }
 }
 
 .divider {
@@ -110,15 +107,13 @@ header p .line-two {
     height: 100%;
     background-color: #070d0a;
     border-right: 1px solid rgba(57, 255, 20, 0.3);
-    z-index: 100;
+    z-index: 1000;
     transition: left 0.3s ease;
     padding: 30px 20px;
     box-shadow: 5px 0 25px rgba(0,0,0,0.8);
 }
 
-.sidebar.open {
-    left: 0;
-}
+.sidebar.open { left: 0; }
 
 .close-btn {
     background: none;
@@ -139,14 +134,8 @@ header p .line-two {
     font-size: 1.1rem;
 }
 
-.sidebar ul {
-    list-style: none;
-}
-
-.sidebar ul li {
-    margin-bottom: 20px;
-}
-
+.sidebar ul { list-style: none; }
+.sidebar ul li { margin-bottom: 20px; }
 .sidebar ul li a {
     color: var(--text-main);
     text-decoration: none;
@@ -171,33 +160,33 @@ header p .line-two {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.7);
-    z-index: 99;
+    z-index: 500;
 }
 
-.overlay.show {
-    display: block;
-}
+.overlay.show { display: block; }
 
+/* ==========================================================================
+   3. FIXED TEXT BOX PADDING & MORPHISM
+   ========================================================================== */
 section {
-    background-color: rgba(13, 26, 19, 0.75); 
-    backdrop-filter: blur(8px); 
-    -webkit-backdrop-filter: blur(8px); 
-    border: 1px solid rgba(57, 255, 20, 0.12);
-    border-radius: 16px; /
-    padding: 30px;
+    background-color: var(--card-bg);
+    border: 1px solid rgba(57, 255, 20, 0.15);
+    border-radius: 14px;
+    padding: 40px 30px 45px; /* FIXED: Increased breathing room for text layouts */
     margin-bottom: 30px;
-    box-shadow: 
-        0 10px 40px rgba(0, 0, 0, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    position: relative; /* Crucial anchor for mushrooms */
 }
 
 section h2 {
     font-family: 'Cinzel', serif;
     color: #ffffff;
     font-size: 1.4rem;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     border-bottom: 1px dashed rgba(226, 240, 233, 0.2);
-    padding-bottom: 8px;
+    padding-bottom: 10px;
     text-transform: uppercase;
 }
 
@@ -214,8 +203,13 @@ footer {
     color: rgba(226, 240, 233, 0.4);
 }
 
+/* ==========================================================================
+   4. INSECT ECOSYSTEM DESIGN RULES
+   ========================================================================== */
 .insect {
     position: fixed;
+    top: 0;
+    left: 0;
     z-index: 99999;
     pointer-events: none;
     will-change: transform;
@@ -223,62 +217,44 @@ footer {
 }
 
 .insect.crawler {
-    opacity: 0.65;
-    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+    opacity: 0.6;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.6));
 }
 
-.insect.flyer {
-    opacity: 0.9;
-}
-
+.insect.flyer { opacity: 0.9; }
 .insect.flyer .glow-core {
     box-shadow: 0 0 8px 3px #39ff14;
     filter: drop-shadow(0 0 4px #39ff14);
 }
 
-/* Stable Wing Flutter Loops */
-@keyframes flapL {
-    0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(-35deg); }
-}
-@keyframes flapR {
-    0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(35deg); }
-}
+@keyframes flapL { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-35deg); } }
+@keyframes flapR { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(35deg); } }
 
-.insect.flyer .left-wing {
-    transform-origin: 15px 12px;
-    animation: flapL 0.06s infinite linear;
-}
+.insect.flyer .left-wing { transform-origin: 15px 12px; animation: flapL 0.06s infinite linear; }
+.insect.flyer .right-wing { transform-origin: 15px 12px; animation: flapR 0.06s infinite linear; }
 
-.insect.flyer .right-wing {
-    transform-origin: 15px 12px;
-    animation: flapR 0.06s infinite linear;
-}
-/* --- Automated Fungi Style Layer --- */
+/* ==========================================================================
+   5. MUSHROOM CLUSTER ENVIRONMENT RULES
+   ========================================================================== */
 .cluster-container {
-    position: relative;
-    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
     height: 0;
+    pointer-events: none;
 }
 
 .mushroom-cluster {
     position: absolute;
-    bottom: -6px; /* Grips the bottom seam of your content cards */
+    bottom: -4px; /* Flushed directly to the container frame rim */
     z-index: 10;
-    pointer-events: none;
-    opacity: 0.85;
+    opacity: 0.9;
 }
 
-/* The slow, breathing bioluminescent loop */
 @keyframes sporeGlow {
-    0%, 100% { 
-        filter: drop-shadow(0 0 2px rgba(57, 255, 20, 0.25)) brightness(0.85); 
-    }
-    50% { 
-        filter: drop-shadow(0 0 8px rgba(57, 255, 20, 0.65)) brightness(1.2); 
-    }
+    0%, 100% { filter: drop-shadow(0 0 2px rgba(57, 255, 20, 0.25)) brightness(0.85); }
+    50% { filter: drop-shadow(0 0 8px rgba(57, 255, 20, 0.65)) brightness(1.2); }
 }
 
 .mushroom-cluster svg {
