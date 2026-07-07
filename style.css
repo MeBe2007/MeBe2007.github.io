@@ -214,24 +214,57 @@ footer {
     color: rgba(226, 240, 233, 0.4);
 }
 
-.forest-bug {
+/* --- Ecosystem Core Layer Rules --- */
+.insect {
     position: fixed;
     top: 0;
     left: 0;
-    width: 3px;
-    height: 6px; /* Slightly elongated body shape */
-    background-color: #d2ffd6;
-    border-radius: 3px 3px 2px 2px;
-    z-index: 9999;
+    z-index: 99999; /* Float over everything on the page */
     pointer-events: none;
-    box-shadow: 0 0 8px 2px #39ff14; /* Soft organic bioluminescent aura */
-    opacity: 0.7;
     will-change: transform;
-    animation: bugBlink 4s infinite ease-in-out;
 }
 
-/* Gives them a breathing, natural heartbeat glow pulse */
-@keyframes bugBlink {
-    0%, 100% { opacity: 0.3; filter: drop-shadow(0 0 2px #39ff14); }
-    50% { opacity: 0.9; filter: drop-shadow(0 0 10px #39ff14); }
+/* Crawlers styling */
+.insect.crawler {
+    opacity: 0.55;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.4));
+}
+
+/* Flyers styling & structural bioluminescence */
+.insect.flyer {
+    opacity: 0.85;
+}
+
+.insect.flyer .glow-core {
+    box-shadow: 0 0 10px 4px #39ff14;
+    filter: drop-shadow(0 0 6px #39ff14);
+}
+
+/* Fluttering Wing Animations */
+@keyframes flutterLeft {
+    0%, 100% { transform: rotate(-25deg) scaleX(1); }
+    50% { transform: rotate(-50deg) scaleX(0.7); }
+}
+@keyframes flutterRight {
+    0%, 100% { transform: rotate(25deg) scaleX(1); }
+    50% { transform: rotate(50deg) scaleX(0.7); }
+}
+
+.insect.flyer .left-wing {
+    transform-origin: 15px 12px;
+    animation: flutterLeft 0.08s infinite linear;
+}
+
+.insect.flyer .right-wing {
+    transform-origin: 15px 12px;
+    animation: flutterRight 0.08s infinite linear;
+}
+
+/* Slow, organic pulsing light loop for the flyer bodies */
+@keyframes flyerPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+.insect.flyer svg {
+    animation: flyerPulse 2.5s infinite ease-in-out;
 }
