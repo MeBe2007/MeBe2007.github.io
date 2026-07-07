@@ -4,6 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
     function generateSideProfileBracket(offset, isLeft, scale, delay) {
         const id = `profile-shelf-${Math.floor(Math.random() * 10000)}`;
         
+        // Dynamic device sizing: scale down significantly if the screen is a phone
+        const isMobile = window.innerWidth < 768;
+        const finalScale = isMobile ? (scale * 0.55).toFixed(2) : scale;
+
         const capTexture = `
             <filter id="cap-texture-${id}">
                 <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" result="noise" />
@@ -28,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
 
         const svgContent = `
-            <svg viewBox="0 0 120 100" width="120" height="100" style="overflow: visible;">
+            <svg viewBox="0 0 120 100" width="100%" height="100%" style="overflow: visible;">
                 <defs>
                     ${capTexture}
                     <linearGradient id="crustGrad-${id}" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -45,46 +49,42 @@ document.addEventListener("DOMContentLoaded", () => {
                 </defs>
                 
                 <path d="M 0,10 Q 30,30 20,90 Q 0,70 0,10 Z" fill="#030201" filter="blur(4px)" opacity="0.9" />
-
-                <g transform="translate(0, 35)">
-                    ${singleTierHTML(`poreGrad-${id}`, `crustGrad-${id}`)}
-                </g>
-
-                <g transform="translate(0, 15) scale(0.88)">
-                    ${singleTierHTML(`poreGrad-${id}`, `crustGrad-${id}`)}
-                </g>
-
-                <g transform="translate(0, -5) scale(0.72)">
-                    ${singleTierHTML(`poreGrad-${id}`, `crustGrad-${id}`)}
-                </g>
-
+                <g transform="translate(0, 35)">${singleTierHTML(`poreGrad-${id}`, `crustGrad-${id}`)}</g>
+                <g transform="translate(0, 15) scale(0.88)">${singleTierHTML(`poreGrad-${id}`, `crustGrad-${id}`)}</g>
+                <g transform="translate(0, -5) scale(0.72)">${singleTierHTML(`poreGrad-${id}`, `crustGrad-${id}`)}</g>
                 <circle cx="30" cy="52" r="1.4" class="glow-spore" fill="#ffffff" />
                 <circle cx="50" cy="32" r="1.1" class="glow-spore" fill="#ffffff" />
             </svg>
         `;
 
-        // Left side elements point left, right side elements point right
         const flipTransform = isLeft ? 'scaleX(-1)' : '';
 
+        // Using flexible rem sizes for container bounding boxes to scale seamlessly
         return `
             <div class="shroom-specimen spec-shelf" style="
                 position: absolute;
+                width: ${isMobile ? '45px' : '95px'};
+                height: ${isMobile ? '38px' : '80px'};
                 ${offset}
-                transform: ${flipTransform} scale(${scale});
+                transform: ${flipTransform} scale(${finalScale});
                 animation-delay: ${delay}s;
             ">${svgContent}</div>`;
     }
 
-    // 1. FIXED GLASS BOX ALIGNMENTS
+    // 1. CARDS COLONIZATION (Responsive offsets)
     sections.forEach((section) => {
         let growthHTML = '';
+        const isMobile = window.innerWidth < 768;
         
-        // Left Edge: Adjusted to pull the base entirely out of the text window (-115px)
-        growthHTML += generateSideProfileBracket(`left: -115px; top: 22%;`, true, 0.95, 0.1);
-        growthHTML += generateSideProfileBracket(`left: -115px; top: 68%;`, true, 0.85, 2.3);
+        // Left Edge Anchors: Uses responsive percentage/viewport overrides
+        const leftOffset = isMobile ? 'left: -32px;' : 'left: -85px;';
+        growthHTML += generateSideProfileBracket(`${leftOffset} top: 22%;`, true, 1.05, 0.1);
+        growthHTML += generateSideProfileBracket(`${leftOffset} top: 68%;`, true, 0.88, 2.3);
 
-        // Right Edge: Shifted outward to flush the base cleanly against the glass border (-5px)
-        growthHTML += generateSideProfileBracket(`right: -5px; top: 45%;`, false, 1.0, 1.4);
+        // Right Edge Anchors: RESTORED both shelves, shifting them slightly outward on desktop
+        const rightOffset = isMobile ? 'right: -12px;' : 'right: -15px;';
+        growthHTML += generateSideProfileBracket(`${rightOffset} top: 25%;`, false, 0.95, 0.7);
+        growthHTML += generateSideProfileBracket(`${rightOffset} top: 60%;`, false, 1.1, 1.4);
 
         const boxLayer = document.createElement("div");
         boxLayer.className = "mycelium-box-layer";
@@ -92,15 +92,17 @@ document.addEventListener("DOMContentLoaded", () => {
         section.appendChild(boxLayer);
     });
 
-    // 2. FIXED VIEWPORT WINDOW ALIGNMENTS
+    // 2. VIEWPORT SIDEWALL COLONIZATION
     const screenLayer = document.createElement("div");
     screenLayer.className = "mycelium-screen-layer";
     let screenHTML = '';
+    const isMobile = window.innerWidth < 768;
     
-    // Left monitor edge: Pulling it out from the absolute frame seam (-110px)
-    screenHTML += generateSideProfileBracket(`left: -110px; top: 28vh;`, true, 1.3, 0.5);
-    // Right monitor edge: Snapping it beautifully into the right gutter (-10px)
-    screenHTML += generateSideProfileBracket(`right: -10px; top: 72vh;`, false, 1.2, 1.9);
+    const screenLeft = isMobile ? 'left: -20px;' : 'left: -65px;';
+    const screenRight = isMobile ? 'right: -5px;' : 'right: -10px;';
+
+    screenHTML += generateSideProfileBracket(`${screenLeft} top: 28vh;`, true, 1.35, 0.5);
+    screenHTML += generateSideProfileBracket(`${screenRight} top: 72vh;`, false, 1.25, 1.9);
     
     screenLayer.innerHTML = screenHTML;
     document.body.appendChild(screenLayer);
