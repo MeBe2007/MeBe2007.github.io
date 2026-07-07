@@ -213,3 +213,28 @@ footer {
     font-size: 0.85rem;
     color: rgba(226, 240, 233, 0.4);
 }
+
+/* --- Bioluminescent Forest Bug Style Rules --- */
+.forest-bug {
+    position: fixed; /* Locked relative to the viewport, ignoring standard layout flow */
+    width: 4px;
+    height: 4px;
+    background-color: #ffffff; /* Bright core */
+    border-radius: 50%;
+    z-index: 9999; /* Forces them to sit on top of everything else */
+    pointer-events: none; /* Invisible to finger taps so they don't break menu clicking */
+    transition: opacity 0.3s ease;
+    opacity: 0.6;
+    will-change: top, left; /* Optimizes mobile performance for high frame-rate rendering */
+}
+
+/* Subtle, organic pulsing so they flicker lightly like true organisms */
+@keyframes critterFlicker {
+    0%, 100% { opacity: 0.4; transform: scale(0.9); }
+    50% { opacity: 0.8; transform: scale(1.1); }
+}
+
+.forest-bug {
+    animation: critterFlicker 3s infinite ease-in-out;
+    animation-delay: calc(Math.random() * 2s);
+}
