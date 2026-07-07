@@ -5,22 +5,22 @@ const paletteDefs = document.createElementNS("http://www.w3.org/2000/svg", "svg"
     paletteDefs.innerHTML = `
         <defs>
             <linearGradient id="capGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#3b6e4c" />
-                <stop offset="40%" stop-color="#1c3d25" />
-                <stop offset="100%" stop-color="#0a170e" />
+                <stop offset="0%" stop-color="#2c4232" />
+                <stop offset="50%" stop-color="#14241a" />
+                <stop offset="100%" stop-color="#090f0b" />
             </linearGradient>
             
             <linearGradient id="gillsGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#07120a" />
-                <stop offset="50%" stop-color="#1b3620" />
-                <stop offset="100%" stop-color="#07120a" />
+                <stop offset="0%" stop-color="#050a06" />
+                <stop offset="50%" stop-color="#122116" />
+                <stop offset="100%" stop-color="#050a06" />
             </linearGradient>
             
             <linearGradient id="stemGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#0a140d" />
-                <stop offset="30%" stop-color="#243d2a" />
-                <stop offset="70%" stop-color="#14261a" />
-                <stop offset="100%" stop-color="#050a06" />
+                <stop offset="0%" stop-color="#080d09" />
+                <stop offset="30%" stop-color="#1b2b1f" />
+                <stop offset="70%" stop-color="#111c14" />
+                <stop offset="100%" stop-color="#040805" />
             </linearGradient>
         </defs>
     `;
