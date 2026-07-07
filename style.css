@@ -234,7 +234,7 @@ footer {
 .insect.flyer .right-wing { transform-origin: 15px 12px; animation: flapR 0.06s infinite linear; }
 
 /* ==========================================================================
-   5. REALISTIC MULTI-SPECIES FUNGI TAKEOVER LAYER (Fixed Colors)
+   5. REALISTIC BIOLUMINESCENT FOXFIRE LAYER (Baked-In Rendering Core)
    ========================================================================== */
 .mycelium-box-layer, 
 .mycelium-title-layer {
@@ -264,31 +264,25 @@ footer {
 
 .shroom-specimen svg {
     display: block;
+    overflow: visible;
 }
 
-/* --- Direct Class Asset Color Mappings --- */
-
-/* 1. Wood Shelves (Ochre Cap + Dark Stems) */
-.shelf-cap { fill: url(#shelfCapGrad) !important; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.8)); }
-.shelf-stem { stroke: url(#shelfStemGrad) !important; }
-
-/* 2. Ghost Fungi (Pale Aquas) */
-.ghost-cap { fill: url(#ghostCapGrad) !important; fill-opacity: 0.9; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.85)); }
-.ghost-stem { stroke: url(#ghostStemGrad) !important; }
-
-/* 3. Forest Toadstools (Deep Greens) */
-.toad-cap { fill: url(#toadCapGrad) !important; filter: drop-shadow(0 4px 5px rgba(0,0,0,0.9)); }
-.toad-stem { stroke: url(#toadStemGrad) !important; }
-.toad-gills { fill: url(#toadGillsGrad) !important; }
-
-/* Global Bioluminescent Micro Spores */
-.glow-spore {
-    fill: #ffffff !important;
-    filter: drop-shadow(0 0 2px #22c55e) drop-shadow(0 0 6px #39ff14);
+/* Micro Glowing Spore Matrix: Soft embedded emissions */
+.shroom-specimen svg .glow-spore {
+    filter: drop-shadow(0 0 3px #22c55e) drop-shadow(0 0 8px #39ff14);
 }
 
-/* --- Gentle Breathing Engine --- */
+/* Specific species environmental color multipliers */
+.spec-shelf { filter: drop-shadow(0 0 4px rgba(234,179,8,0.25)); }
+.spec-ghost { filter: drop-shadow(0 0 6px rgba(45,212,191,0.35)); }
+.spec-toadstool { filter: drop-shadow(0 0 5px rgba(34,197,94,0.3)); }
+
+/* --- Unhurried Chemical Breathe Loop --- */
 @keyframes chemicalGlow {
-    0%, 100% { filter: brightness(0.8) drop-shadow(0 2px 4px rgba(0,0,0,0.9)); }
-    50% { filter: brightness(1.15) drop-shadow(0 4px 8px rgba(0,0,0,0.65)); }
+    0%, 100% { 
+        filter: brightness(0.8) drop-shadow(0 2px 4px rgba(0,0,0,0.85)); 
+    }
+    50% { 
+        filter: brightness(1.2) drop-shadow(0 4px 10px rgba(0,0,0,0.6)); 
+    }
 }
