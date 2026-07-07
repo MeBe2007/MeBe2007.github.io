@@ -234,7 +234,7 @@ footer {
 .insect.flyer .right-wing { transform-origin: 15px 12px; animation: flapR 0.06s infinite linear; }
 
 /* ==========================================================================
-   5. OVERGROWN MYCELIUM TAKEOVER LAYER
+   5. DEEP-FOREST REALISTIC MYCELIUM TAKEOVER LAYER
    ========================================================================== */
 .mycelium-box-layer, 
 .mycelium-title-layer {
@@ -253,27 +253,63 @@ footer {
     width: 100vw;
     height: 100vh;
     pointer-events: none;
-    z-index: 9999; /* Float completely above background masks */
+    z-index: 9999;
 }
 
+/* --- Anatomy Texturing & Realism Modifiers --- */
 .shroom-specimen {
     transform-origin: bottom center;
     will-change: filter, transform;
-    animation: parasitePulse 4.5s infinite ease-in-out;
+    animation: parasitePulse 5s infinite ease-in-out;
 }
 
 .shroom-specimen svg {
     display: block;
 }
 
-/* Organic breathing light engine */
+/* Stems: Give them a rich, organic bark/moss texture instead of a single flat color */
+.shroom-specimen svg path[stroke^="#11"] {
+    stroke: url(#stemGradient) !important;
+    filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.8));
+}
+
+/* Caps: Transforming vector shapes into volumetric fleshy hoods with real depth */
+.shroom-specimen svg path[fill^="#1e"], 
+.shroom-specimen svg path[fill^="#1b"],
+.shroom-specimen svg path[fill^="#14"],
+.shroom-specimen svg path[fill^="#18"] {
+    fill: url(#capGradient) !important;
+    filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.85));
+}
+
+/* Gills: Deepening the under-cap shadows where spores fall */
+.shroom-specimen svg ellipse[fill^="#2d"],
+.shroom-specimen svg ellipse[fill^="#22"],
+.shroom-specimen svg ellipse[fill^="#29"],
+.shroom-specimen svg ellipse[fill^="#34"] {
+    fill: url(#gillsGradient) !important;
+}
+
+/* Bioluminescent Dots: Making them look like internal glowing embers rather than flat dots */
+.shroom-specimen svg circle[fill="#39ff14"] {
+    fill: #ffffff !important;
+    box-shadow: 0 0 10px #39ff14;
+    filter: drop-shadow(0 0 3px #22c55e) drop-shadow(0 0 8px #39ff14);
+}
+
+/* --- Highly Dynamic Breathing Glow Animation --- */
 @keyframes parasitePulse {
     0%, 100% { 
-        filter: drop-shadow(0 0 2px rgba(57, 255, 20, 0.25)) brightness(0.85);
-        transform: scale(0.98);
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.9)) 
+                drop-shadow(0 0 3px rgba(57, 255, 20, 0.15))
+                brightness(0.85);
+        transform: scale(0.97) ease-in-out;
     }
     50% { 
-        filter: drop-shadow(0 0 14px rgba(57, 255, 20, 0.9)) drop-shadow(0 0 6px #10b981) brightness(1.3);
-        transform: scale(1.02);
+        filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.7)) 
+                drop-shadow(0 0 16px rgba(57, 255, 20, 0.6)) 
+                drop-shadow(0 0 6px #10b981) 
+                brightness(1.25);
+        transform: scale(1.03) ease-in-out;
     }
 }
