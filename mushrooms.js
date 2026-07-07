@@ -1,3 +1,31 @@
+const paletteDefs = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    paletteDefs.style.position = "absolute";
+    paletteDefs.style.width = "0";
+    paletteDefs.style.height = "0";
+    paletteDefs.innerHTML = `
+        <defs>
+            <linearGradient id="capGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#3b6e4c" />
+                <stop offset="40%" stop-color="#1c3d25" />
+                <stop offset="100%" stop-color="#0a170e" />
+            </linearGradient>
+            
+            <linearGradient id="gillsGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#07120a" />
+                <stop offset="50%" stop-color="#1b3620" />
+                <stop offset="100%" stop-color="#07120a" />
+            </linearGradient>
+            
+            <linearGradient id="stemGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#0a140d" />
+                <stop offset="30%" stop-color="#243d2a" />
+                <stop offset="70%" stop-color="#14261a" />
+                <stop offset="100%" stop-color="#050a06" />
+            </linearGradient>
+        </defs>
+    `;
+    document.body.appendChild(paletteDefs);
+
 document.addEventListener("DOMContentLoaded", () => {
     // Target both the glass cards and the main title letters
     const sections = document.querySelectorAll("section");
