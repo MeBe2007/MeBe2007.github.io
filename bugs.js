@@ -1,69 +1,69 @@
-const bugCount = 6; // Total number of bugs active on the screen edges
+const bugCount = 8;
 const bugs = [];
 
 for (let i = 0; i < bugCount; i++) {
     const bug = document.createElement('div');
     bug.className = 'forest-bug';
     
-    // Randomly scatter them along the left or right edges initially
-    const side = Math.random() > 0.5 ? 0 : window.innerWidth - 10;
-    const top = Math.random() * window.innerHeight;
+    // Choose a random edge to start on (0: Left, 1: Right, 2: Top, 3: Bottom)
+    const edge = Math.floor(Math.random() * 4);
+    let x = 0, y = 0;
     
-    bug.style.left = `${side}px`;
-    bug.style.top = `${top}px`;
-    
-    // Give each bug a unique, slight variation in bioluminescent glow size
-    bug.style.boxShadow = `0 0 ${Math.random() * 6 + 4}px #39ff14`;
-    
+    if (edge === 0) { x = 5; y = Math.random() * window.innerHeight; }
+    else if (edge === 1) { x = window.innerWidth - 10; y = Math.random() * window.innerHeight; }
+    else if (edge === 2) { x = Math.random() * window.innerWidth; y = 5; }
+    else { x = Math.random() * window.innerWidth; y = window.innerHeight - 10; }
+
     document.body.appendChild(bug);
-    
-    // Store their positioning metadata
+
     bugs.push({
         element: bug,
-        x: side,
-        y: top,
-        targetY: top,
-        speed: Math.random() * 0.08 + 0.02,
-        side: side === 0 ? 'left' : 'right'
+        x: x,
+        y: y,
+        angle: Math.random() * Math.PI * 2, // Direction they are facing
+        speed: Math.random() * 0.4 + 0.2,   // Slow, gentle crawling speed
+        turnSpeed: 0,
+        wobbleSpeed: Math.random() * 0.05 + 0.02,
+        wobbleTime: Math.random() * 100,
+        pulseDelay: Math.random() * 3
     });
 }
 
-// Whenever the user scrolls, stir up the bugs and push them along the screen
-window.addEventListener('scroll', () => {
-    const scrollDelta = window.scrollY;
+// Frame-by-frame autonomous steering loop
+function updateBugs() {
+    bugs.forEach(bug => {
+        bug.wobbleTime += bug.wobbleSpeed;
+        
+        // Perlin-style random steering so they wander smoothly like a real ant or fly
+        bug.turnSpeed += (Math.random() - 0.5) * 0.1;
+        bug.turnSpeed *= 0.9; // Friction so they don't spin wildly
+        bug.angle += bug.turnSpeed;
+
+        // Move forward in the direction they are facing
+        bug.x += Math.cos(bug.angle) * bug.speed;
+        bug.y += Math.sin(bug.angle) * bug.speed;
+
+        // Force them to stick close to the margins of the screen
+        const padding = 15; 
+        if (bug.x < padding) { bug.x = padding; bug.angle = 0; }
+        if (bug.x > window.innerWidth - padding) { bug.x = window.innerWidth - padding; bug.angle = Math.PI; }
+        if (bug.y < padding) { bug.y = padding; bug.angle = Math.PI / 2; }
+        if (bug.y > window.innerHeight - padding) { bug.y = window.innerHeight - padding; bug.angle = -Math.PI / 2; }
+
+        // Apply physical coordinates and rotate the bug element to face its travel direction
+        bug.element.style.transform = `translate3d(${bug.x}px, ${bug.y}px, 0) rotate(${bug.angle + Math.PI/2}rd)`;
+    });
     
-    bugs.forEach(bug => {
-        // Skitter up or down randomly in reaction to the scroll momentum
-        const movement = (Math.random() - 0.5) * 60;
-        bug.targetY = (bug.y + movement + (scrollDelta * 0.1)) % window.innerHeight;
-        
-        // Prevent them from climbing entirely off the screen limits
-        if (bug.targetY < 0) bug.targetY = window.innerHeight;
-    });
-});
-
-// Frame-by-frame animation loop to make their movement look organic and smooth
-function animateBugs() {
-    bugs.forEach(bug => {
-        // Smooth interpolation (lerp) so they glide instead of snap teleporting
-        bug.y += (bug.targetY - bug.y) * bug.speed;
-        
-        // Keep them locked strictly to the edge boundaries so they don't block text
-        if (bug.side === 'left') {
-            bug.element.style.left = '2px';
-        } else {
-            bug.element.style.left = `${window.innerWidth - 8}px`;
-        }
-        
-        bug.element.style.top = `${bug.y}px`;
-    });
-    requestAnimationFrame(animateBugs);
+    requestAnimationFrame(updateBugs);
 }
-animateBugs();
+requestAnimationFrame(updateBugs);
 
-// Keep the bugs pinned to the true edges if the screen is resized
-window.addEventListener('resize', () => {
+// When scrolling happens, it gently alerts them, making them hasten up slightly
+window.addEventListener('scroll', () => {
     bugs.forEach(bug => {
-        if (bug.side === 'right') bug.x = window.innerWidth - 10;
+        bug.speed = Math.random() * 1.2 + 0.6; // Scurry temporarily
+        setTimeout(() => {
+            bug.speed = Math.random() * 0.4 + 0.2; // Return to a slow crawl
+        }, 1200);
     });
 });
