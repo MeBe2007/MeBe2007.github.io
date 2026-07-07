@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Terrarium | Botanica Boomtown</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Metrophobic&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=500;700&family=Metrophobic&display=swap');
 
         :root {
             --bg-color: #0b130e;
@@ -42,7 +42,6 @@
             position: relative;
         }
 
-        /* Pure Hamburger Icon Button */
         .menu-btn {
             position: absolute;
             top: 10px;
@@ -60,15 +59,16 @@
             line-height: 1;
         }
 
+        /* Animated Title: Pulsing Bioluminescence */
         header h1 {
             font-family: 'Cinzel', serif;
             font-size: 2.3rem;
             color: #ffffff;
-            text-shadow: 0 0 10px var(--neon-glow), 0 0 20px var(--neon-green);
             line-height: 1.2;
             margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 2px;
+            animation: biopulse 4s ease-in-out infinite;
         }
 
         header p {
@@ -77,6 +77,16 @@
             text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
             font-size: 1rem;
             letter-spacing: 1px;
+        }
+
+        /* Breathing keyframes for the neon text glow */
+        @keyframes biopulse {
+            0%, 100% {
+                text-shadow: 0 0 8px var(--neon-glow), 0 0 15px var(--neon-green);
+            }
+            50% {
+                text-shadow: 0 0 18px var(--neon-glow), 0 0 35px var(--neon-green), 0 0 40px #ffffff;
+            }
         }
 
         .divider {
@@ -162,7 +172,7 @@
             display: block;
         }
 
-        /* Welcome Landing Section */
+        /* Dynamic Content Card */
         section {
             background-color: var(--card-bg);
             border: 1px solid rgba(57, 255, 20, 0.15);
@@ -170,6 +180,14 @@
             padding: 30px;
             text-align: center;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease; /* Smooth transition for the organic hover effect */
+        }
+
+        /* Card responds to touch/hover like a living object */
+        section:hover {
+            transform: translateY(-4px);
+            border-color: rgba(57, 255, 20, 0.5);
+            box-shadow: 0 6px 25px rgba(57, 255, 20, 0.15);
         }
 
         section h2 {
