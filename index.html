@@ -3,39 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Installation Name | Boomtown 2026</title>
+    <title>The Installation Name | Botanica | Boomtown</title>
     <style>
-        /* We will add gorgeous styling here in the next step! */
-        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
-        section { margin-bottom: 40px; }
+        /* Base Styling & Custom Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Metrophobic&display=swap');
+
+        :root {
+            --bg-color: #0b130e;       /* Deep mossy black-green */
+            --card-bg: #14221a;        /* Translucent forest card background */
+            --text-main: #e2f0e9;      /* Crisp off-white for reading text */
+            --neon-green: #39ff14;     /* Bioluminescent radioactive green */
+            --neon-glow: #10b981;      /* Deep emerald secondary glow */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Metrophobic', sans-serif;
+            line-height: 1.8;
+            padding: 20px 15px;
+            /* Subtly textured background resembling deep forest mist */
+            background-image: radial-gradient(circle at 50% 20%, #173625 0%, #0b130e 70%);
+        }
+
+        /* Container designed to fit cleanly on mobile phones */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+        }
+
+        header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: #ffffff;
+            text-shadow: 0 0 10px var(--neon-glow), 0 0 20px var(--neon-green);
+            line-height: 1.2;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-style: italic;
+            color: var(--neon-green);
+            text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        /* Stylized divider line */
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+            margin: 20px 0 40px;
+        }
+
+        /* Elegant content boxes */
+        section {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(57, 255, 20, 0.15);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            font-family: 'Cinzel', serif;
+            color: #ffffff;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed rgba(226, 240, 233, 0.2);
+            padding-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Creative narrative styling to stand out */
+        #narrative p {
+            font-size: 1.1rem;
+            color: #f0f7f4;
+            white-space: pre-line; /* Keeps paragraph breaks beautiful */
+        }
+
+        #about-project p, #creators p {
+            font-size: 1rem;
+            color: #c2d6cc;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            font-size: 0.85rem;
+            color: rgba(226, 240, 233, 0.4);
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>[Name of Your Art Piece]</h1>
-        <p><em>An Immersive Installation at Boomtown 2026</em></p>
-    </header>
+    <div class="container">
+        <header>
+            <h1>The Lost Spore</h1>
+            <p>District Botanica // Boomtown 2026</p>
+        </header>
 
-    <hr>
+        <div class="divider"></div>
 
-    <!-- The Creative Narrative (Lore) -->
-    <section id="narrative">
-        <h2>The Lore</h2>
-        <p>This is where your creative writing piece will go. You can paint a picture with your words here, setting the atmospheric, strange, or beautiful backstory of the installation that players/ festival-goers just stumbled upon.</p>
-    </section>
+        <!-- The Creative Narrative (Lore) -->
+        <section id="narrative">
+            <h2>The Narrative</h2>
+            <p>They told us the canopy was sleeping, but if you press your ear close against the bark, you can hear it breathe. 
 
-    <!-- About the Project -->
-    <section id="about-project">
-        <h2>About the Project</h2>
-        <p>Here, you'll explain the concept of the project. What inspired it? What materials or themes are at play? Give the curious minds a peek behind the curtain of the installation itself.</p>
-    </section>
+            This structure is a beacon for the lost roots. When the bass ripples through the earth of the festival grounds, the neon veins wake up. You aren't just standing in front of an art piece—you've stepped inside a living, mechanical organism that has broken through the concrete to reclaim its heart.</p>
+        </section>
 
-    <!-- The Creators -->
-    <section id="creators">
-        <h2>The Creators</h2>
-        <p>This piece was conceptualized and constructed by [Your Name/Collective Name]. Dedicated to bringing immersive spaces to life.</p>
-    </section>
+        <!-- About the Project -->
+        <section id="about-project">
+            <h2>About the Project</h2>
+            <p>This installation explores the intersection of organic form and industrial refuse. Salvaged steel chassis are woven with living ivy and custom-programmed bioluminescent LEDs that pulse in harmony with low-frequency vibrations from neighboring stages.</p>
+        </section>
+
+        <!-- The Creators -->
+        <section id="creators">
+            <h2>The Creators</h2>
+            <p>Designed and built as an independent collective piece. Bringing physical lore and interactive structures to life in the heart of the woods.</p>
+        </section>
+
+        <footer>
+            <p>Scan to remember. Respect the forest.</p>
+        </footer>
+    </div>
 
 </body>
 </html>
