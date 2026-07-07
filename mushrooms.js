@@ -2,43 +2,47 @@ document.addEventListener("DOMContentLoaded", () => {
     const sections = document.querySelectorAll("section");
 
     sections.forEach((section, index) => {
-        const clusterContainer = document.createElement("div");
-        clusterContainer.className = "cluster-container";
+        const containerWrapper = document.createElement("div");
+        containerWrapper.className = "cluster-container";
 
-        clusterContainer.innerHTML = `
-            <div class="mushroom-cluster">
-                <svg viewBox="0 0 40 40" width="35" height="35">
-                    <path d="M12,40 Q13,25 9,18 M22,40 Q21,20 24,12 M28,40 Q29,30 31,24" stroke="#162b1c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                    
-                    <path d="M4,19 C4,13 14,13 14,19 Z" fill="#1b3822"/>
-                    <ellipse cx="9" cy="18" rx="4.5" ry="1.5" fill="#2d5c39"/>
-                    <circle cx="9" cy="15" r="0.7" fill="#39ff14"/>
-                    
-                    <path d="M17,13 C17,5 31,5 31,13 Z" fill="#22472b"/>
-                    <ellipse cx="24" cy="12.5" rx="6.5" ry="2" fill="#346b41"/>
-                    <circle cx="22" cy="9" r="0.8" fill="#39ff14"/>
-                    <circle cx="26" cy="8" r="0.6" fill="#39ff14"/>
-                    
-                    <path d="M27,25 C27,20 36,20 36,25 Z" fill="#17301d"/>
-                    <ellipse cx="31.5" cy="24.5" rx="4" ry="1.2" fill="#254d2f"/>
-                    <circle cx="31.5" cy="22" r="0.5" fill="#39ff14"/>
+        const typeA = `
+            <div class="mushroom-cluster type-a" style="right: 30px; transform: scale(1.5);">
+                <svg viewBox="0 0 50 50" width="50" height="50">
+                    <path d="M15,50 Q18,30 12,18 M30,50 Q28,22 34,12" stroke="#122416" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+                    <path d="M22,14 C22,3 44,3 44,14 Z" fill="#1b3b22"/>
+                    <ellipse cx="33" cy="13.5" rx="11" ry="2.5" fill="#2d5e39"/>
+                    <circle cx="28" cy="8" r="1.2" fill="#39ff14"/>
+                    <circle cx="36" cy="7" r="1" fill="#39ff14"/>
+                    <path d="M4,20 C4,11 19,11 19,20 Z" fill="#152e1a"/>
+                    <ellipse cx="11.5" cy="19.5" rx="7.5" ry="2" fill="#224a2a"/>
+                    <circle cx="11" cy="16" r="1" fill="#39ff14"/>
                 </svg>
             </div>
         `;
 
+        const typeB = `
+            <div class="mushroom-cluster type-b" style="left: 20px; transform: scale(1.6) scaleX(-1);">
+                <svg viewBox="0 0 50 40" width="50" height="40">
+                    <path d="M0,40 Q15,35 10,20" stroke="#0e1f13" stroke-width="4" fill="none"/>
+                    <path d="M2,28 C2,16 32,16 32,28 Z" fill="#18331f"/>
+                    <ellipse cx="17" cy="27" rx="15" ry="3.5" fill="#295434"/>
+                    <circle cx="12" cy="23" r="1.4" fill="#39ff14"/>
+                    <circle cx="22" cy="22" r="1.2" fill="#39ff14"/>
+                    <path d="M25,36 C25,30 39,30 39,36 Z" fill="#0f2114"/>
+                    <ellipse cx="32" cy="35.5" rx="7" ry="1.5" fill="#1a3822"/>
+                </svg>
+            </div>
+        `;
 
-        const clusterElement = clusterContainer.querySelector(".mushroom-cluster");
-        if (index % 2 === 0) {
-            clusterElement.style.right = "25px";
-            clusterElement.style.left = "auto";
-        } else {
-            clusterElement.style.left = "25px";
-            clusterElement.style.right = "auto";
-            // Flip them horizontally on alternating cards so they aren't identical copies
-            clusterElement.style.transform = "scaleX(-1)";
+        containerWrapper.innerHTML = typeA + typeB;
+
+        if (index % 2 !== 0) {
+            const elA = containerWrapper.querySelector(".type-a");
+            const elB = containerWrapper.querySelector(".type-b");
+            if (elA) { elA.style.right = "auto"; elA.style.left = "45px"; elA.style.transform = "scale(1.4) scaleX(-1)"; }
+            if (elB) { elB.style.left = "auto"; elB.style.right = "15px"; elB.style.transform = "scale(1.7)"; }
         }
 
-
-        section.appendChild(clusterContainer);
+        section.appendChild(containerWrapper);
     });
 });
