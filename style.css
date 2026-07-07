@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=500;700&family=Metrophobic&display=swap');
 
 :root {
-    --bg-color: #003300;     /* Deep, rich forest floor midnight */
+    --bg-color: #050a06;     /* Deep, rich forest floor midnight */
     --card-bg: rgba(11, 22, 15, 0.8); /* Dark greenhouse translucent tint */
     --text-main: #e2f0e9;
     --neon-green: #39ff14;
@@ -24,7 +24,7 @@ body {
     line-height: 1.8;
     padding: 20px 15px;
     /* Soft, elegant canopy glow wash - clean and dark, not chaotic */
-    background-image: radial-gradient(circle at 50% 20%, #0f2417 0%, #003300 80%);
+    background-image: radial-gradient(circle at 50% 20%, #0f2417 0%, #050a06 80%);
     background-attachment: fixed; 
     overflow-x: hidden;
 }
