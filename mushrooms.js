@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function generateShelfCluster(offset, tilt, scale, delay) {
         const id = `shelf-${Math.floor(Math.random() * 10000)}`;
         
-        // Coarse fractal noise to mimic rough wood-grain texture
         const textureFilter = `
             <filter id="shelf-noise-${id}">
                 <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" result="noise" />
@@ -14,14 +13,18 @@ document.addEventListener("DOMContentLoaded", () => {
             </filter>
         `;
 
-        // The SVG geometry now uses a flat vertical baseline on the left (0,0 axis)
-        // so it looks perfectly fused into the wood boundary line.
+        // Keeping the flat seam base, but our rotation in the layout step 
+        // will turn these vertically to hug the trunk frames perfectly
         svgContent = `
             <svg viewBox="0 0 80 60" width="85" height="65">
                 <defs>
                     ${textureFilter}
                     <linearGradient id="shelfGrad-${id}" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#140a03" />       <stop offset="20%" stop-color="#5c2d06" />      <stop offset="75%" stop-color="#b45309" />      <stop offset="100%" stop-color="#f59e0b" />     </linearGradient>
+                        <stop offset="0%" stop-color="#140a03" />
+                        <stop offset="20%" stop-color="#5c2d06" />
+                        <stop offset="75%" stop-color="#b45309" />
+                        <stop offset="100%" stop-color="#f59e0b" />
+                    </linearGradient>
                 </defs>
                 
                 <path d="M 0,5 C 20,10, 35,25, 30,55 C 15,55, 0,45, 0,5 Z" fill="#050404" filter="blur(3px)" />
@@ -42,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 <circle cx="28" cy="24" r="1.3" class="glow-spore" fill="#ffffff" />
                 <circle cx="48" cy="34" r="1.0" class="glow-spore" fill="#ffffff" />
-                <circle cx="16" cy="18" r="1.1" class="glow-spore" fill="#ffffff" />
             </svg>
         `;
 
@@ -55,16 +57,16 @@ document.addEventListener("DOMContentLoaded", () => {
             ">${svgContent}</div>`;
     }
 
-    // 1. DOCK DIRECTLY ON THE BOX "TRUNKS"
+    // 1. CLIMBING THE BOX BORDER "TRUNKS"
     sections.forEach((section) => {
         let growthHTML = '';
         
-        // Left Box Edge: Sprouting horizontally out to the left (180deg flip)
-        growthHTML += generateShelfCluster(`left: -58px; top: 20%;`, 180, 1.25, 0.1);
-        growthHTML += generateShelfCluster(`left: -58px; top: 65%;`, 180, 1.05, 2.3);
+        // Left Box Edge: Tilted to -90 degrees so they face straight up along the seam
+        growthHTML += generateShelfCluster(`left: -20px; top: 20%;`, -90, 1.2, 0.1);
+        growthHTML += generateShelfCluster(`left: -20px; top: 60%;`, -90, 1.0, 2.3);
 
-        // Right Box Edge: Sprouting horizontally out to the right (0deg default orientation)
-        growthHTML += generateShelfCluster(`right: -58px; top: 45%;`, 0, 1.3, 1.4);
+        // Right Box Edge: Tilted to 90 degrees so they grip and grow upward on the right seam
+        growthHTML += generateShelfCluster(`right: -60px; top: 40%;`, 90, 1.25, 1.4);
 
         const boxLayer = document.createElement("div");
         boxLayer.className = "mycelium-box-layer";
@@ -72,15 +74,15 @@ document.addEventListener("DOMContentLoaded", () => {
         section.appendChild(boxLayer);
     });
 
-    // 2. DOCK DIRECTLY ON THE VIEWPORT SCREEN WINDOW "TRUNKS"
+    // 2. CLIMBING THE SCREEN PARAMETER "TRUNKS"
     const screenLayer = document.createElement("div");
     screenLayer.className = "mycelium-screen-layer";
     let screenHTML = '';
     
-    // Left viewport frame attachment
-    screenHTML += generateShelfCluster(`left: -52px; top: 25vh;`, 0, 1.8, 0.5);
-    // Right viewport frame attachment
-    screenHTML += generateShelfCluster(`right: -52px; top: 70vh;`, 180, 1.6, 1.9);
+    // Left viewport frame attachment (Climbing up)
+    screenHTML += generateShelfCluster(`left: -15px; top: 30vh;`, -90, 1.6, 0.5);
+    // Right viewport frame attachment (Climbing up)
+    screenHTML += generateShelfCluster(`right: -65px; top: 65vh;`, 90, 1.5, 1.9);
     
     screenLayer.innerHTML = screenHTML;
     document.body.appendChild(screenLayer);
