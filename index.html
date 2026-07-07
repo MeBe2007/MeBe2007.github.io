@@ -80,17 +80,24 @@
         }
 
         header p span {
-            display: inline-block;
+            display: block;
         }
 
         header p .line-two {
-            display: block;
             margin-top: 4px;
         }
-        @media (min-width: 480px) {
-            header p .line-two {
+        @media (min-width: 500px) {
+            header p span {
                 display: inline;
-                margin-top: 0;
+            }
+
+            header p .line-two {
+                margin-top 0;
+            }
+
+            header p .line-one::after {
+                content: "/";
+                font-style: normal;
             }
         }
 
