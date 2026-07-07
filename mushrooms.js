@@ -13,20 +13,16 @@ document.addEventListener("DOMContentLoaded", () => {
             </filter>
         `;
 
-        // The core template for a single tier with detailed, radiating gill lines
         const singleTierHTML = (poreGradId, crustGradId) => `
             <path d="M 0,25 C 25,25 90,35 105,20 C 80,45 25,48 0,35 Z" fill="url(#${poreGradId})" />
-            
-            <g stroke="#854d0e" stroke-width="0.8" opacity="0.6" fill="none">
+            <g stroke="#6b3a04" stroke-width="0.9" opacity="0.65" fill="none">
                 <path d="M 5,30 Q 35,32 100,21" />
                 <path d="M 10,33 Q 40,35 95,22" />
                 <path d="M 15,36 Q 45,37 88,23" />
                 <path d="M 20,38 Q 48,39 80,24" />
                 <path d="M 2,28 Q 30,30 103,21" />
                 <path d="M 25,40 Q 50,40 72,25" />
-                <path d="M 35,42 Q 55,41 65,26" />
             </g>
-            
             <path d="M 0,5 C 20,5 85,10 105,20 C 70,22 15,30 0,25 Z" fill="url(#${crustGradId})" filter="url(#cap-texture-${id})" />
             <path d="M 0,6 C 20,6 85,11 105,20" stroke="#fde047" stroke-width="1.2" fill="none" opacity="0.35" />
         `;
@@ -37,7 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     ${capTexture}
                     <linearGradient id="crustGrad-${id}" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" stop-color="#211003" />
-                        <stop offset="50%" stop-color="#6b21a8" /> <stop offset="85%" stop-color="#b45309" />
+                        <stop offset="50%" stop-color="#4c1d95" />
+                        <stop offset="85%" stop-color="#b45309" />
                         <stop offset="100%" stop-color="#f59e0b" />
                     </linearGradient>
                     <linearGradient id="poreGrad-${id}" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -66,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </svg>
         `;
 
+        // Left side elements point left, right side elements point right
         const flipTransform = isLeft ? 'scaleX(-1)' : '';
 
         return `
@@ -77,12 +75,16 @@ document.addEventListener("DOMContentLoaded", () => {
             ">${svgContent}</div>`;
     }
 
-    // CONTENT CARD CORES
+    // 1. FIXED GLASS BOX ALIGNMENTS
     sections.forEach((section) => {
         let growthHTML = '';
-        growthHTML += generateSideProfileBracket(`left: -15px; top: 22%;`, true, 1.05, 0.1);
-        growthHTML += generateSideProfileBracket(`left: -15px; top: 68%;`, true, 0.88, 2.3);
-        growthHTML += generateSideProfileBracket(`right: -15px; top: 45%;`, false, 1.1, 1.4);
+        
+        // Left Edge: Adjusted to pull the base entirely out of the text window (-115px)
+        growthHTML += generateSideProfileBracket(`left: -115px; top: 22%;`, true, 0.95, 0.1);
+        growthHTML += generateSideProfileBracket(`left: -115px; top: 68%;`, true, 0.85, 2.3);
+
+        // Right Edge: Shifted outward to flush the base cleanly against the glass border (-5px)
+        growthHTML += generateSideProfileBracket(`right: -5px; top: 45%;`, false, 1.0, 1.4);
 
         const boxLayer = document.createElement("div");
         boxLayer.className = "mycelium-box-layer";
@@ -90,12 +92,15 @@ document.addEventListener("DOMContentLoaded", () => {
         section.appendChild(boxLayer);
     });
 
-    // ABSOLUTE SIDE VIEWPORT PARAMETERS
+    // 2. FIXED VIEWPORT WINDOW ALIGNMENTS
     const screenLayer = document.createElement("div");
     screenLayer.className = "mycelium-screen-layer";
     let screenHTML = '';
-    screenHTML += generateSideProfileBracket(`left: -10px; top: 28vh;`, true, 1.35, 0.5);
-    screenHTML += generateSideProfileBracket(`right: -10px; top: 72vh;`, false, 1.25, 1.9);
+    
+    // Left monitor edge: Pulling it out from the absolute frame seam (-110px)
+    screenHTML += generateSideProfileBracket(`left: -110px; top: 28vh;`, true, 1.3, 0.5);
+    // Right monitor edge: Snapping it beautifully into the right gutter (-10px)
+    screenHTML += generateSideProfileBracket(`right: -10px; top: 72vh;`, false, 1.2, 1.9);
     
     screenLayer.innerHTML = screenHTML;
     document.body.appendChild(screenLayer);
