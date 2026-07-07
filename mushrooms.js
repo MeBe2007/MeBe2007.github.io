@@ -6,31 +6,30 @@ document.addEventListener("DOMContentLoaded", () => {
         let svgContent = '';
         
         if (species === 'shelf') {
-            // Species 1: Creamy Wood Shelf/Bracket Fungus (Flat, layered, ochre tones)
+            // Species 1: Ochre Wood Bracket Fungi - now with a thick, knotty lateral base stalk
             svgContent = `
-                <svg viewBox="0 0 60 40" width="60" height="40">
-                    <path d="M 5,30 C 8,10, 38,5, 55,20 C 58,28, 40,38, 5,36 Z" class="shroom-cap" />
-                    <path d="M 10,26 C 16,14, 34,12, 48,22" stroke="rgba(0,0,0,0.4)" stroke-width="1.5" fill="none"/>
-                    <path d="M 6,31 C 12,20, 30,18, 44,26" stroke="rgba(255,255,255,0.15)" stroke-width="1" fill="none"/>
-                    <circle cx="22" cy="22" r="1.3" class="glow-spore" />
-                    <circle cx="36" cy="24" r="1" class="glow-spore" />
+                <svg viewBox="0 0 60 50" width="60" height="50">
+                    <path d="M 12,48 Q 20,30 8,16" class="shroom-stem shelf-stem" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <path d="M 2,22 C 5,6, 35,2, 52,14 C 55,22, 38,32, 2,30 Z" class="shroom-cap shelf-cap" />
+                    <circle cx="18" cy="14" r="1.3" class="glow-spore" />
+                    <circle cx="32" cy="13" r="1" class="glow-spore" />
                 </svg>`;
         } else if (species === 'ghost') {
-            // Species 2: Ghost Fungi (Slender, pale, deeply translucent, hanging upside down)
+            // Species 2: Glowing Ghost Fungi - slender, deeply bent stalks
             svgContent = `
                 <svg viewBox="0 0 40 50" width="40" height="50">
-                    <path d="M 20,2 C 24,15, 10,25, 15,40" class="shroom-stem" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                    <path d="M 4,36 C 2,22, 12,16, 34,22 C 38,27, 28,38, 20,36 C 12,34, 7,40, 4,36 Z" class="shroom-cap" />
-                    <circle cx="12" cy="30" r="1.5" class="glow-spore" />
-                    <circle cx="24" cy="31" r="1.1" class="glow-spore" />
+                    <path d="M 20,48 C 24,32, 10,22, 15,16" class="shroom-stem ghost-stem" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                    <path d="M 2,20 C 0,8, 12,2, 32,8 C 36,13, 26,24, 18,22 C 10,20, 5,26, 2,20 Z" class="shroom-cap ghost-cap" />
+                    <circle cx="12" cy="12" r="1.5" class="glow-spore" />
+                    <circle cx="24" cy="14" r="1.1" class="glow-spore" />
                 </svg>`;
         } else {
-            // Species 3: Classic Detailed Toadstool (Wavy, asymmetrical caps, wild stalks)
+            // Species 3: Classic Forest Toadstool - thick, flared roots
             svgContent = `
                 <svg viewBox="0 0 50 60" width="50" height="60">
-                    <path d="M 24,56 Q 20,30, 25,18" class="shroom-stem" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-                    <ellipse cx="25" cy="18" rx="15" ry="3.5" class="shroom-gills" />
-                    <path d="M 6,18 C 4,3, 44,0, 44,16 C 32,18, 26,14, 20,18 C 14,21, 10,20, 6,18 Z" class="shroom-cap" />
+                    <path d="M 25,56 Q 19,32, 25,18" class="shroom-stem toad-stem" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+                    <ellipse cx="25" cy="18" rx="14" ry="3" class="shroom-gills toad-gills" />
+                    <path d="M 6,18 C 4,3, 44,0, 44,16 C 32,18, 26,14, 20,18 C 14,21, 10,20, 6,18 Z" class="shroom-cap toad-cap" />
                     <circle cx="18" cy="8" r="1.2" class="glow-spore" />
                     <circle cx="28" cy="7" r="1.4" class="glow-spore" />
                     <circle cx="34" cy="11" r="0.9" class="glow-spore" />
@@ -51,17 +50,17 @@ document.addEventListener("DOMContentLoaded", () => {
     sections.forEach((section) => {
         let growthHTML = '';
         
-        // Vertical Left Sides: Mix of climbing brackets and classic stems
-        growthHTML += generateMushroomHTML('shelf', `left: -22px; top: 20%;`, -70, 1.2, 0, 11);
-        growthHTML += generateMushroomHTML('toadstool', `left: -15px; top: 60%;`, -85, 1.0, 2.5, 9);
+        // Left Verticals
+        growthHTML += generateMushroomHTML('shelf', `left: -25px; top: 25%;`, -65, 1.2, 0, 11);
+        growthHTML += generateMushroomHTML('toadstool', `left: -20px; top: 65%;`, -80, 1.0, 2.5, 9);
 
-        // Vertical Right Sides
-        growthHTML += generateMushroomHTML('shelf', `right: -32px; top: 40%;`, 70, 1.3, 1.2, 13);
-        growthHTML += generateMushroomHTML('ghost', `right: -10px; top: 75%;`, 15, 1.1, 3.1, 10);
+        // Right Verticals
+        growthHTML += generateMushroomHTML('shelf', `right: -35px; top: 35%;`, 65, 1.3, 1.2, 13);
+        growthHTML += generateMushroomHTML('ghost', `right: -15px; top: 70%;`, 20, 1.1, 3.1, 10);
 
         // Top Rims
-        growthHTML += generateMushroomHTML('toadstool', `left: 20%; top: -46px;`, -6, 1.4, 0.5, 12);
-        growthHTML += generateMushroomHTML('ghost', `right: 30%; top: -16px;`, 185, 1.2, 1.9, 14);
+        growthHTML += generateMushroomHTML('toadstool', `left: 25%; top: -48px;`, -5, 1.3, 0.4, 12);
+        growthHTML += generateMushroomHTML('ghost', `right: 35%; top: -44px;`, 10, 1.2, 1.9, 14);
 
         const boxLayer = document.createElement("div");
         boxLayer.className = "mycelium-box-layer";
@@ -75,9 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
         mainTitle.style.display = 'inline-block';
 
         let titleGrowthHTML = '';
-        titleGrowthHTML += generateMushroomHTML('ghost', `left: -8px; top: 14px;`, -45, 0.9, 0.2, 12);
-        titleGrowthHTML += generateMushroomHTML('toadstool', `left: 50%; top: -38px;`, 5, 1.1, 1.7, 10);
-        titleGrowthHTML += generateMushroomHTML('shelf', `right: -18px; top: 2px;`, 40, 1.0, 0.8, 14);
+        titleGrowthHTML += generateMushroomHTML('ghost', `left: -12px; top: 5px;`, -35, 0.8, 0.2, 12);
+        titleGrowthHTML += generateMushroomHTML('toadstool', `left: 55%; top: -42px;`, 8, 1.0, 1.7, 10);
+        titleGrowthHTML += generateMushroomHTML('shelf', `right: -24px; top: -5px;`, 35, 0.9, 0.8, 14);
 
         const titleLayer = document.createElement("div");
         titleLayer.className = "mycelium-title-layer";
@@ -89,51 +88,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const screenLayer = document.createElement("div");
     screenLayer.className = "mycelium-screen-layer";
     let screenHTML = '';
-    screenHTML += generateMushroomHTML('shelf', `left: -20px; top: 35vh;`, -90, 2.0, 0, 15);
-    screenHTML += generateMushroomHTML('toadstool', `right: -15px; top: 65vh;`, -75, 1.8, 1.5, 11);
+    screenHTML += generateMushroomHTML('shelf', `left: -25px; top: 30vh;`, -85, 1.8, 0, 15);
+    screenHTML += generateMushroomHTML('toadstool', `right: -20px; top: 60vh;`, -70, 1.6, 1.5, 11);
     
     screenLayer.innerHTML = screenHTML;
     document.body.appendChild(screenLayer);
 
-    // Inject Color Palette Definitions for Lighting Renderings
+    // Inject Master Lighting Gradients
     const paletteDefs = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     paletteDefs.style.position = "absolute";
     paletteDefs.style.width = "0";
     paletteDefs.style.height = "0";
     paletteDefs.innerHTML = `
         <defs>
-            <linearGradient id="shelfCap" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#cf9b62" />
-                <stop offset="50%" stop-color="#785028" />
-                <stop offset="100%" stop-color="#2d1d0e" />
-            </linearGradient>
-            
-            <linearGradient id="ghostCap" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#d1fae5" />
-                <stop offset="60%" stop-color="#6ee7b7" />
-                <stop offset="100%" stop-color="#064e3b" />
-            </linearGradient>
-            <linearGradient id="ghostStem" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#042f22" />
-                <stop offset="50%" stop-color="#a7f3d0" />
-                <stop offset="100%" stop-color="#022d20" />
-            </linearGradient>
-            
-            <linearGradient id="toadCap" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#4c7356" />
-                <stop offset="60%" stop-color="#1e3625" />
-                <stop offset="100%" stop-color="#0a140e" />
-            </linearGradient>
-            <linearGradient id="toadStem" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#09120b" />
-                <stop offset="40%" stop-color="#3b5c43" />
-                <stop offset="100%" stop-color="#040805" />
-            </linearGradient>
-            <linearGradient id="toadGills" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#050a06" />
-                <stop offset="50%" stop-color="#1c2e20" />
-                <stop offset="100%" stop-color="#050a06" />
-            </linearGradient>
+            <linearGradient id="shelfCapGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#dfa86f"/><stop offset="60%" stop-color="#8c5d32"/><stop offset="100%" stop-color="#3a2512"/></linearGradient>
+            <linearGradient id="shelfStemGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#24160a"/><stop offset="100%" stop-color="#4a321c"/></linearGradient>
+            <linearGradient id="ghostCapGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#e6fffa"/><stop offset="50%" stop-color="#99f6e4"/><stop offset="100%" stop-color="#0d9488"/></linearGradient>
+            <linearGradient id="ghostStemGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#115e59"/><stop offset="100%" stop-color="#ccfbf1"/></linearGradient>
+            <linearGradient id="toadCapGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#5c8a69"/><stop offset="60%" stop-color="#223d29"/><stop offset="100%" stop-color="#0c1a10"/></linearGradient>
+            <linearGradient id="toadStemGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#0a140d"/><stop offset="50%" stop-color="#476e52"/><stop offset="100%" stop-color="#0d1f14"/></linearGradient>
+            <linearGradient id="toadGillsGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#060c08"/><stop offset="50%" stop-color="#1e3324"/><stop offset="100%" stop-color="#060c08"/></linearGradient>
         </defs>
     `;
     document.body.appendChild(paletteDefs);
