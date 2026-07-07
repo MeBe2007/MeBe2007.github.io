@@ -295,8 +295,8 @@ footer {
     .shroom-right-bottom { right: -73px; top: 60%; }
     
     /* Screen side edge anchors */
-    .screen-left-shroom  { left: -68px; top: 30vh; transform: scale(1.15); }
-    .screen-right-shroom { right: -68px; top: 72vh; transform: scaleX(-1) scale(1.15); }
+    .screen-left-shroom  { left: -68px; top: 30vh; transform: scaleX(-1) scale(1.15); }
+    .screen-right-shroom { right: -68px; top: 72vh; transform: scale(1.15); }
 }
 
 /* ==========================================================================
@@ -317,6 +317,6 @@ footer {
     .shroom-right-bottom { right: -24px; top: 60%; }
     
     /* Screen border attachments */
-    .screen-left-shroom  { left: -20px; top: 32vh; transform: scale(1.1); }
-    .screen-right-shroom { right: -20px; top: 75vh; transform: scaleX(-1) scale(1.1); }
+    .screen-left-shroom  { left: -20px; top: 32vh; transform: scaleX(-1) scale(1.1); }
+    .screen-right-shroom { right: -20px; top: 75vh; transform: scale(1.1); }
 }
