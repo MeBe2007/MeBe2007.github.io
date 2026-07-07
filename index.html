@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Installation Name | Group name | Botanica Boomtown</title>
+    <title>The Terrarium | The Dandelion Collective | Botanica Boomtown</title>
     <style>
         /* Base Styling & Custom Fonts */
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Metrophobic&display=swap');
@@ -28,24 +28,45 @@
             font-family: 'Metrophobic', sans-serif;
             line-height: 1.8;
             padding: 20px 15px;
-            /* Subtly textured background resembling deep forest mist */
             background-image: radial-gradient(circle at 50% 20%, #173625 0%, #0b130e 70%);
+            overflow-x: hidden; /* Prevents horizontal scroll when sidebar is hidden */
         }
 
-        /* Container designed to fit cleanly on mobile phones */
         .container {
             max-width: 600px;
             margin: 0 auto;
+            position: relative;
         }
 
+        /* --- Header & Navigation Menu Button --- */
         header {
             text-align: center;
-            padding: 40px 0 30px;
+            padding: 60px 0 20px;
+            position: relative;
+        }
+
+        /* The Burger Button to open the sidebar */
+        .menu-btn {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            background: none;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-family: 'Metrophobic', sans-serif;
+            cursor: pointer;
+            text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            z-index: 10;
         }
 
         header h1 {
             font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             color: #ffffff;
             text-shadow: 0 0 10px var(--neon-glow), 0 0 20px var(--neon-green);
             line-height: 1.2;
@@ -58,18 +79,97 @@
             font-style: italic;
             color: var(--neon-green);
             text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
-            font-size: 1.1rem;
+            font-size: 1rem;
             letter-spacing: 1px;
         }
 
-        /* Stylized divider line */
         .divider {
             height: 2px;
             background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
-            margin: 20px 0 40px;
+            margin: 20px 0 30px;
         }
 
-        /* Elegant content boxes */
+        /* --- Side Navigation Panel --- */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px; /* Hidden off-screen by default */
+            width: 280px;
+            height: 100%;
+            background-color: #070d0a;
+            border-right: 1px solid rgba(57, 255, 20, 0.3);
+            z-index: 100;
+            transition: left 0.3s ease; /* Smooth slide-in animation */
+            padding: 30px 20px;
+            box-shadow: 5px 0 25px rgba(0,0,0,0.8);
+        }
+
+        /* Class added by JavaScript to slide the panel in */
+        .sidebar.open {
+            left: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            float: right;
+            margin-bottom: 30px;
+        }
+
+        .sidebar h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--neon-green);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul li a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 1.2rem;
+            display: block;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(226, 240, 233, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .sidebar ul li a:hover, .sidebar ul li a.active {
+            color: var(--neon-green);
+            border-bottom: 1px solid var(--neon-green);
+            padding-left: 5px;
+            text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
+        }
+
+        /* Dark overlay to blur out background when menu is open */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 99;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+
+        /* --- Content Sections Control --- */
         section {
             background-color: var(--card-bg);
             border: 1px solid rgba(57, 255, 20, 0.15);
@@ -77,6 +177,20 @@
             padding: 25px;
             margin-bottom: 30px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            
+            /* Hidden by default, toggled via JavaScript */
+            display: none; 
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        /* Keeps the active section visible */
+        section.active-page {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h2 {
@@ -90,11 +204,10 @@
             letter-spacing: 1px;
         }
 
-        /* Creative narrative styling to stand out */
         #narrative p {
             font-size: 1.1rem;
             color: #f0f7f4;
-            white-space: pre-line; /* Keeps paragraph breaks beautiful */
+            white-space: pre-line;
         }
 
         #about-project p, #creators p {
@@ -113,27 +226,37 @@
 </head>
 <body>
 
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <nav class="sidebar" id="sidebar">
+        <button class="close-btn" onclick="toggleMenu()">&times;</button>
+        <h3>Navigation</h3>
+        <ul>
+            <li><a href="#" class="active" onclick="switchPage('narrative')">The Narrative</a></li>
+            <li><a href="#" onclick="switchPage('about-project')">About the Project</a></li>
+            <li><a href="#" onclick="switchPage('creators')">The Creators</a></li>
+        </ul>
+    </nav>
+
     <div class="container">
         <header>
+            <button class="menu-btn" onclick="toggleMenu()">MENU ☰</button>
             <h1>The Terrarium</h1>
             <p>The Dandelion Collective // Botanica Boomtown 2026</p>
         </header>
 
         <div class="divider"></div>
 
-        <!-- The Creative Narrative (Lore) -->
-        <section id="narrative">
+        <section id="narrative" class="active-page">
             <h2>The Narrative</h2>
             <p></p>
         </section>
 
-        <!-- About the Project -->
         <section id="about-project">
             <h2>About the Project</h2>
             <p></p>
         </section>
 
-        <!-- The Creators -->
         <section id="creators">
             <h2>The Creators</h2>
             <p></p>
@@ -144,5 +267,34 @@
         </footer>
     </div>
 
+    <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('show');
+        }
+
+        function switchPage(pageId) {
+            // 1. Hide all sections
+            const sections = document.querySelectorAll('section');
+            sections.forEach(sec => sec.classList.remove('active-page'));
+
+            // 2. Show the selected section
+            document.getElementById(pageId).classList.add('active-page');
+
+            // 3. Update the active style in the sidebar links
+            const links = document.querySelectorAll('.sidebar ul li a');
+            links.forEach(link => {
+                link.classList.remove('active');
+                if(link.getAttribute('onclick').includes(pageId)) {
+                    link.classList.add('active');
+                }
+            });
+
+            // 4. Automatically close the menu after a choice is made
+            toggleMenu();
+        }
+    </script>
 </body>
 </html>
