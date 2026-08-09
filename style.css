@@ -23,7 +23,6 @@ body {
     font-family: 'Metrophobic', sans-serif;
     line-height: 1.8;
     padding: 20px 15px;
-    /* Soft, elegant canopy glow wash - clean and dark, not chaotic */
     background-image: radial-gradient(circle at 50% 25%, #1c4228 0%, #0f2416 90%);
     background-attachment: fixed; 
     overflow-x: hidden;
@@ -164,6 +163,7 @@ header p .line-two {
 }
 
 .overlay.show { display: block; }
+
 .partner-logos {
     margin-top: 2.5rem;
     padding-top: 1.5rem;
@@ -189,19 +189,20 @@ header p .line-two {
 .partner-logo:hover {
     opacity: 1;
 }
+
 /* ==========================================================================
-   3. FIXED TEXT BOX PADDING & MORPHISM
+   3. TEXT BOX PADDING & MORPHISM
    ========================================================================== */
 section {
     background-color: var(--card-bg);
     border: 1px solid rgba(57, 255, 20, 0.15);
     border-radius: 14px;
-    padding: 40px 30px 45px; /* FIXED: Increased breathing room for text layouts */
+    padding: 40px 30px 45px;
     margin-bottom: 30px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    position: relative; /* Crucial anchor for mushrooms */
+    position: relative;
 }
 
 section h2 {
@@ -258,63 +259,8 @@ footer {
 .insect.flyer .right-wing { transform-origin: 15px 12px; animation: flapR 0.06s infinite linear; }
 
 /* ==========================================================================
-   5. LIVING MUSHROOMS — corner toadstools + trunk-mounted shelf fungus
+   5. LIVING TRUNK-MOUNTED SHELF FUNGUS
    ========================================================================== */
-
-/* ---- corner toadstools ----
-   Positioned with plain top/left/right/bottom pixel values only (no
-   percentage or transform-based placement), computed to sit right at each
-   card corner with a few px of deliberate overlap so it reads as fused to
-   the card, never as floating beside it. `transform` on this element is
-   used only for the grow + sway animation, never for placement, so the
-   two can never fight each other.
-*/
-.tw-mush {
-    position: absolute;
-    z-index: 3;
-    pointer-events: none;
-    opacity: 0;
-    transform: scaleY(0.05);
-    animation: twGrow var(--grow-dur, 1.2s) var(--grow-delay, 0s) cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.tw-mush.sway {
-    animation: twSway var(--sway-dur, 5s) ease-in-out infinite;
-}
-
-.tw-mush svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-    filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 6px rgba(255, 130, 80, 0.35));
-}
-
-/* pivot point for the grow/sway animation: the foot (root) of the
-   mushroom, which never moves regardless of corner -- only its
-   left/right position flips along with the horizontal mirror below */
-.tw-tl, .tw-bl { transform-origin: 72% 96%; }
-.tw-tr, .tw-br { transform-origin: 28% 96%; }
-
-/* the mushroom always stands upright (cap up, foot down) -- gravity
-   never flips. Only mirror left-right per side of the card so it leans
-   away from the card; a vertical flip would turn it upside-down. */
-.tw-tr svg, .tw-br svg { transform: scaleX(-1); }
-
-@keyframes twGrow {
-    0%   { opacity: 0; transform: scaleY(0.05); }
-    55%  { opacity: 1; }
-    75%  { transform: scaleY(1.06); }
-    100% { opacity: 1; transform: scaleY(1); }
-}
-
-@keyframes twSway {
-    0%, 100% { opacity: 1; transform: rotate(0deg); }
-    25%      { opacity: 1; transform: rotate(var(--tilt-a, -2deg)); }
-    75%      { opacity: 1; transform: rotate(var(--tilt-b, 2deg)); }
-}
-
-/* ---- trunk + shelf fungus, runs the full height of the page ---- */
 .tree-shroom {
     position: absolute;
     top: 0;
@@ -327,12 +273,10 @@ path.tree-trunk {
     z-index: 3;
 }
 
-
 .tree-shroom svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .tree-left  { left: 0; }
 .tree-right { right: 0; }
 
-/* only the shelf fungus itself gets a small living pulse; the bark is static */
 .shelf-fungus {
     transform-box: fill-box;
     animation: shelfPulse 5.5s ease-in-out infinite;
@@ -344,44 +288,17 @@ path.tree-trunk {
 
 @keyframes shelfPulse {
     0%, 100% { transform: scale(1); filter: brightness(1); }
-    50%      { transform: scale(1.035); filter: brightness(1.1); }
+    50%      { transform: scale(1.035); filter: brightness(1.15); }
 }
 
-/* ==========================================================================
-   DESKTOP SCREEN LAYOUTS (Standard Desktop View)
-   ========================================================================== */
 @media (min-width: 992px) {
-    .tw-mush { width: var(--mush-size-desktop, 54px); height: var(--mush-size-desktop, 54px); }
-    .tw-tl { top: var(--mush-top-desktop, -52px); left: var(--mush-left-desktop, -39px); }
-    .tw-tr { top: var(--mush-top-desktop, -52px); right: var(--mush-right-desktop, -39px); }
-    .tw-bl { bottom: var(--mush-bottom-desktop, -52px); left: var(--mush-left-desktop, -39px); }
-    .tw-br { bottom: var(--mush-bottom-desktop, -52px); right: var(--mush-right-desktop, -39px); }
-
     .tree-shroom { width: 130px; }
 }
 
-/* ==========================================================================
-   EQUAL SPLIT-SCREEN LAPTOP ENVIRONMENT (Prevents elements from looking too big)
-   ========================================================================== */
 @media (min-width: 768px) and (max-width: 991px) {
-    .tw-mush { width: var(--mush-size-tablet, 42px); height: var(--mush-size-tablet, 42px); }
-    .tw-tl { top: var(--mush-top-tablet, -41px); left: var(--mush-left-tablet, -30px); }
-    .tw-tr { top: var(--mush-top-tablet, -41px); right: var(--mush-right-tablet, -30px); }
-    .tw-bl { bottom: var(--mush-bottom-tablet, -41px); left: var(--mush-left-tablet, -30px); }
-    .tw-br { bottom: var(--mush-bottom-tablet, -41px); right: var(--mush-right-tablet, -30px); }
-
     .tree-shroom { width: 95px; }
 }
 
-/* ==========================================================================
-   MOBILE PHONES (Safely scaled down to clear paragraph panels)
-   ========================================================================== */
 @media (max-width: 767px) {
-    .tw-mush { width: var(--mush-size-mobile, 30px); height: var(--mush-size-mobile, 30px); }
-    .tw-tl { top: var(--mush-top-mobile, -29px); left: var(--mush-left-mobile, -21px); }
-    .tw-tr { top: var(--mush-top-mobile, -29px); right: var(--mush-right-mobile, -21px); }
-    .tw-bl { bottom: var(--mush-bottom-mobile, -29px); left: var(--mush-left-mobile, -21px); }
-    .tw-br { bottom: var(--mush-bottom-mobile, -29px); right: var(--mush-right-mobile, -21px); }
-
     .tree-shroom { width: 56px; opacity: 0.9; }
 }
